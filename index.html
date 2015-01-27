@@ -101,18 +101,34 @@
 			</p>
 
 			<h5 class="definition">Gradient Descent Algorithm</h5>
-			<p>Note that the values of $\theta_0$ and $\theta_1$ are updated simultaneously.</p>
-			<!-- TODO: fix alignment; should be left aligned -->
-			$$\text{repeat until convergence} \; \{\\
-			\;\; \theta_j := \theta_j - \alpha \frac{\delta}{\delta\theta_j} J(\theta_0, \theta_1) \; \text{(for j=0 and j=1)}\\
-			\}$$
+			<p>Note that the values of $\theta_0$ and $\theta_1$ are updated simultaneously. $\alpha$ is called the <em>learning rate.</em></p>
+			$$\begin{aligned}
+			\text{repeat} & \text{ until convergence} \; \{\\
+			& \theta_j := \theta_j - \alpha \frac{\delta}{\delta\theta_j} J(\theta_0, \theta_1) \;\; \text{(for j=0 and j=1)}\\
+			\} \phantom{15pt} &
+			\end{aligned}$$
 
 			<p>The correct implementation of the simultaneous update looks like this:</p>
-			<!-- TODO: fix alignment; should be left aligned -->
-			$$temp0 := \theta_0 -\alpha \frac{\delta}{\delta\theta_j} J(\theta_0, \theta_1)\\
-			temp1:= \theta_1 - \alpha \frac{\delta}{\delta\theta_j} J(\theta_0, \theta_1)\\
-			\theta_0 := temp0\\
-			\theta_1 := temp1$$
+			$$\begin{aligned}
+			& temp0 := \theta_0 - \alpha \frac{\delta}{\delta\theta_j} J(\theta_0, \theta_1)\\
+			& temp1 := \theta_1 - \alpha \frac{\delta}{\delta\theta_j} J(\theta_0, \theta_1)\\
+			& \theta_0 := temp0 \\
+			& \theta_1 := temp1
+			\end{aligned}$$ 
+
+			<h5>Partial derivitive of the cost function</h5>
+			$$\begin{aligned}
+			\text{repeat} & \text{ until convergence} \; \{\\
+			& \theta_0 := \theta_0 - \alpha \frac1{1}{m}\sum^{m}_{i=0}\left(h_\theta(x^{(i)}) - y^{(i)}\right)\\
+			& \theta_1 := \theta_1 - \alpha \frac1{1}{m}\sum^{m}_{i=0}\left(h_\theta(x^{(i)}) - y^{(i)}\right) \cdot x^{(i)}\\
+			\} \phantom{15pt} &
+			\end{aligned}$$
+
+
+			<p><strong>Note:</strong> The cost function $J(\theta_0, \theta_1)$ is <em>convex</em> and therefore has only one optimum overall.</p>
+
+			<h5>Batch Gradient Descent</h5>
+			<p>If the gradient descent uses all $m$ training examples in each iteration it is also called <em>Batch Gradient Descent Algorithm</em>.</p>
 
 			<h2 class="week-indicator">Week 2</h2>
 			<h3>Linear Regression with Multiple Variables</h3>

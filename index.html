@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="HandheldFriendly" content="True">
+		<meta name="MobileOptimized" content="320">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="css/main.css" type="text/css" media="all">
+
+		<!-- typeplate -->
+		<link rel="stylesheet" href="css/typeplate.css" type="text/css" media="all">
+
+		<!-- MathJax -->
+		<script type="text/x-mathjax-config">
+			MathJax.Hub.Config({
+				extensions: ["tex2jax.js"],
+				jax: ["input/TeX", "output/HTML-CSS"],
+				tex2jax: {
+					inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+					displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+					processEscapes: true
+				},
+				"HTML-CSS": { availableFonts: ["TeX"] }
+			});
+		</script>
+		<script type="text/javascript" src="js/MathJax/MathJax.js"></script>
+	</head>
+
+	<body>
+		<div id="main-wrap">
+			<h1>Machine Learning @ Coursera</h1>
+			<h2 class="sub-h2">A cheat sheet</h2>
+
+			<p>This cheatsheet wants to provide an overview of the concepts and the used formulas and definitions of the <em>»Machine Learning«</em> <a href="https://class.coursera.org/ml-008" title="Coursera Online Course: Machine Learning">online course at coursera</a>.</p>
+
+			<h2 class="week-indicator">Week 1</h2>
+
+			<h3>Introduction</h3>
+
+			<h4 class="definition">Machine Learning</h4>
+			<blockquote>
+				»Well-posed Learning Problem: A computer program is said to <em>learn</em>
+				from experience E with respect to some task T and some performance measure E,
+				if its performance on T, as measured by P, improves with experience E.«
+				<br>
+				— <cite>Tom Mitchell (1998)</cite>
+				<sup><a href="#footnote1">[1]</a></sup>
+			</blockquote>
+
+			<h4 class="definition">Supervised Learning</h4>
+			TODO
+
+			<h4 class="definition">Unsupervised Learning</h4>
+			TODO
+
+			<h4 class="definition">Regress Problem</h4>
+			TODO
+
+			<h4 class="definition">Classification Problem</h4>
+			TODO
+
+			<h3>Linear Regression with One Variable</h3>
+			<h4>Model Representation</h4>
+			<p>
+				Notations:
+
+				<ul>
+					<li>$m$: Number of training examples</li>
+					<li>$x$'s: <em>input</em> variable/features</li>
+					<li>$y$'s: <em>output</em> variables/<em>target</em variable></li>
+					<li>$(x,y)$: one training example</li>
+					<li>$(x^{(i)},y^{(i)})$: $i$<sup>th</sup> training example</li>
+				</ul>
+			</p>
+
+			<h5 class="definition">Hypothesis</h5>
+			<p>The hypothesis function maps <em>x's</em> to <em>y's</em> ($h: x \mapsto y$). It can be represented by
+			$$h_{\theta} = \theta_{0} + \theta_{1}x$$
+			with the shorthand $h(x)$.
+			In this case the hypothesis is called <em>»Univariate Linear Regression«</em>.</p>
+
+			<h4>Cost Function</h4>
+			<p>(Or how to choose the parameters $\theta_{i}$'s of the hypothesis.)</p>
+
+			<p></p>
+
+
+			<h2 class="week-indicator">Week 2</h2>
+			<h3>Linear Regression with Multiple Variables</h3>
+			<h3>Octave Tutorial</h3>
+
+			<hr>
+
+			<h2>Appendix</h2>
+			<h3>Footnotes</h3>
+			<ol>
+				<li id="footnote1">Taken from the Machine Learning Video Lecture: »What is Machine Learning?«, Minute <code>01:49</code> at <a href="https://class.coursera.org/ml-008/lecture/2" title="Video Lecture on Coursera">Coursera</a></li>
+			</ol>
+		</div>
+	</body>
+</html>

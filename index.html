@@ -34,6 +34,10 @@
 
 			<p>This cheatsheet wants to provide an overview of the concepts and the used formulas and definitions of the <em>»Machine Learning«</em> <a href="https://class.coursera.org/ml-008" title="Coursera Online Course: Machine Learning">online course at coursera</a>.</p>
 
+			<div id="last-change">
+				<p>Last changed: <time datetime="2015-01-27">January 27th, 2015</time></p>
+			</div>
+
 			<h2 class="week-indicator">Week 1</h2>
 
 			<h3>Introduction</h3>
@@ -54,7 +58,7 @@
 			<h4 class="definition">Unsupervised Learning</h4>
 			TODO
 
-			<h4 class="definition">Regress Problem</h4>
+			<h4 class="definition">Regression Problem</h4>
 			TODO
 
 			<h4 class="definition">Classification Problem</h4>
@@ -75,16 +79,40 @@
 			</p>
 
 			<h5 class="definition">Hypothesis</h5>
-			<p>The hypothesis function maps <em>x's</em> to <em>y's</em> ($h: x \mapsto y$). It can be represented by
+			<p>The hypothesis function maps <em>x's</em> to <em>y's</em> ($h: x \mapsto y$). It can be represented by:</p>
+
 			$$h_{\theta} = \theta_{0} + \theta_{1}x$$
-			with the shorthand $h(x)$.
+
+			<p>The shorthand for the hypothesis is $h(x)$. $\theta_{i}$'s are called the parameters of the hypothesis.
 			In this case the hypothesis is called <em>»Univariate Linear Regression«</em>.</p>
 
 			<h4>Cost Function</h4>
-			<p>(Or how to choose the parameters $\theta_{i}$'s of the hypothesis.)</p>
+			<h5 class="definition">Squared Error Cost Function</h5>
+			$$J(\theta_0, \theta_1) = \frac{1}{2m} \sum^{m}_{i=1}\left(h_{\theta}(x^{(i)}) - y^{(i)}\right)^2$$
 
-			<p></p>
+			<h4>The Gradient Descent Algorithm</h4>
+			<p>The goal is to choose the hypothises' parameters in a manner that the the output of the cost function $J(\theta_0, \theta_1)$ is minimal.</p>
 
+			<p><strong>Outline:</strong>
+				<ul>
+					<li>Start with some $\theta_0, \theta_1$</li>
+					<li>Keep changing $\theta_0, \theta_1$ to reduce $J(\theta_0, \theta_1)$ until we hopefully end up at a minimum</li>
+				</ul>
+			</p>
+
+			<h5 class="definition">Gradient Descent Algorithm</h5>
+			<p>Note that the values of $\theta_0$ and $\theta_1$ are updated simultaneously.</p>
+			<!-- TODO: fix alignment; should be left aligned -->
+			$$\text{repeat until convergence} \; \{\\
+			\;\; \theta_j := \theta_j - \alpha \frac{\delta}{\delta\theta_j} J(\theta_0, \theta_1) \; \text{(for j=0 and j=1)}\\
+			\}$$
+
+			<p>The correct implementation of the simultaneous update looks like this:</p>
+			<!-- TODO: fix alignment; should be left aligned -->
+			$$temp0 := \theta_0 -\alpha \frac{\delta}{\delta\theta_j} J(\theta_0, \theta_1)\\
+			temp1:= \theta_1 - \alpha \frac{\delta}{\delta\theta_j} J(\theta_0, \theta_1)\\
+			\theta_0 := temp0\\
+			\theta_1 := temp1$$
 
 			<h2 class="week-indicator">Week 2</h2>
 			<h3>Linear Regression with Multiple Variables</h3>

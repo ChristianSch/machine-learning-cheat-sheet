@@ -27,7 +27,7 @@
 		<script type="text/javascript" src="js/MathJax/MathJax.js"></script>
 	</head>
 
-	<body>
+	<body id="top">
 		<div id="main-wrap">
 			<h1>Machine Learning @ Coursera</h1>
 			<h2 class="sub-h2">A cheat sheet</h2>
@@ -35,14 +35,16 @@
 			<p>This cheatsheet wants to provide an overview of the concepts and the used formulas and definitions of the <em>»Machine Learning«</em> <a href="https://class.coursera.org/ml-008" title="Coursera Online Course: Machine Learning">online course at coursera</a>.</p>
 
 			<div id="last-change">
-				<p>Last changed: <time datetime="2015-01-27">January 27th, 2015</time></p>
+				<p>Last changed: <time datetime="2015-01-28">January 28th, 2015</time></p>
 			</div>
 
-			<h2 class="week-indicator">Week 1</h2>
+			<p><strong>Please note:</strong> I changed the notation very slighty. I'll denote vectors with a little arrow on the top. Example: $\vec\theta$</p>
 
-			<h3>Introduction</h3>
+			<h2 class="week-indicator" id="week-1">Week 1<a class="anchor-link" href="#week-1"></a></h2>
 
-			<h4 class="definition">Machine Learning</h4>
+			<h3 id="intro">Introduction<a class="anchor-link" href="#intro"></a></h3>
+
+			<h4 class="definition" id="def-ml">Machine Learning<a class="anchor-link" href="#def-ml"></a></h4>
 			<blockquote>
 				»Well-posed Learning Problem: A computer program is said to <em>learn</em>
 				from experience E with respect to some task T and some performance measure E,
@@ -52,25 +54,24 @@
 				<sup><a href="#footnote1">[1]</a></sup>
 			</blockquote>
 
-			<h4 class="definition">Supervised Learning</h4>
+			<h4 class="definition" id="def-sl">Supervised Learning<a class="anchor-link" href="#def-sl"></a></h4>
 			TODO
 
-			<h4 class="definition">Unsupervised Learning</h4>
+			<h4 class="definition" id="def-ul">Unsupervised Learning<a class="anchor-link" href="#def-ul"></a></h4>
 			TODO
 
-			<h4 class="definition">Regression Problem</h4>
+			<h4 class="definition" id="def-reg-prob">Regression Problem<a class="anchor-link" href="#def-reg-prob"></a></h4>
 			TODO
 
-			<h4 class="definition">Classification Problem</h4>
+			<h4 class="definition" id="def-class-prob">Classification Problem<a class="anchor-link" href="#def-class-prob"></a></h4>
 			TODO
 
-			<h3>Linear Regression with One Variable</h3>
-			<h4>Model Representation</h4>
+			<h3 id="univariate-lin-reg">Linear Regression with One Variable<a class="anchor-link" href="#univariate-lin-reg"></a></h3>
+			<h4 id="model-rep">Model Representation<a class="anchor-link" href="#model-rep"></a></h4>
 			<p>
-				Notations:
-
+				<strong>Notations:</strong>
 				<ul>
-					<li>$m$: Number of training examples</li>
+					<li>$m$: number of training examples</li>
 					<li>$x$'s: <em>input</em> variable/features</li>
 					<li>$y$'s: <em>output</em> variables/<em>target</em variable></li>
 					<li>$(x,y)$: one training example</li>
@@ -78,7 +79,7 @@
 				</ul>
 			</p>
 
-			<h5 class="definition">Hypothesis</h5>
+			<h5 class="definition" id="univariate-hypothesis">Univariate Hypothesis<a class="anchor-link" href="#univariate-hypothesis"></a></h5>
 			<p>The hypothesis function maps <em>x's</em> to <em>y's</em> ($h: x \mapsto y$). It can be represented by:</p>
 
 			$$h_{\theta} = \theta_{0} + \theta_{1}x$$
@@ -86,11 +87,11 @@
 			<p>The shorthand for the hypothesis is $h(x)$. $\theta_{i}$'s are called the parameters of the hypothesis.
 			In this case the hypothesis is called <em>»Univariate Linear Regression«</em>.</p>
 
-			<h4>Cost Function</h4>
-			<h5 class="definition">Squared Error Cost Function</h5>
+			<h4 id="cost-function">Cost Function<a class="anchor-link" href="#cost-function"></a></h4>
+			<h5 class="definition" id="def-secf">Squared Error Cost Function<a class="anchor-link" href="#def-secf"></a></h5>
 			$$J(\theta_0, \theta_1) = \frac{1}{2m} \sum^{m}_{i=1}\left(h_{\theta}(x^{(i)}) - y^{(i)}\right)^2$$
 
-			<h4>The Gradient Descent Algorithm</h4>
+			<h4 class="def" id="grad-dec">The Gradient Descent Algorithm<a class="anchor-link" href="#grad-dec"></a></h4>
 			<p>The goal is to choose the hypothises' parameters in a manner that the the output of the cost function $J(\theta_0, \theta_1)$ is minimal.</p>
 
 			<p><strong>Outline:</strong>
@@ -100,7 +101,7 @@
 				</ul>
 			</p>
 
-			<h5 class="definition">Gradient Descent Algorithm</h5>
+			<h5 class="definition" id="def-grad-dec">Gradient Descent Algorithm<a class="anchor-link" href="#def-grad-dec"></a></h5>
 			<p>Note that the values of $\theta_0$ and $\theta_1$ are updated simultaneously. $\alpha$ is called the <em>learning rate.</em></p>
 			$$\begin{aligned}
 			\text{repeat} & \text{ until convergence} \; \{\\
@@ -116,7 +117,7 @@
 			& \theta_1 := temp1
 			\end{aligned}$$ 
 
-			<h5>Partial derivitive of the cost function</h5>
+			<h5 id="part-der-cf">Partial derivitive of the cost function<a class="anchor-link" href="#part-der-cf"></a></h5>
 			$$\begin{aligned}
 			\text{repeat} & \text{ until convergence} \; \{\\
 			& \theta_0 := \theta_0 - \alpha \frac1{1}{m}\sum^{m}_{i=0}\left(h_\theta(x^{(i)}) - y^{(i)}\right)\\
@@ -127,20 +128,87 @@
 
 			<p><strong>Note:</strong> The cost function $J(\theta_0, \theta_1)$ is <em>convex</em> and therefore has only one optimum overall.</p>
 
-			<h5>Batch Gradient Descent</h5>
+			<h5 class="definition" id="def-batch-grad-dec">Batch Gradient Descent<a class="anchor-link" href="#def-batch-grad-dec"></a></h5>
 			<p>If the gradient descent uses all $m$ training examples in each iteration it is also called <em>Batch Gradient Descent Algorithm</em>.</p>
 
-			<h2 class="week-indicator">Week 2</h2>
-			<h3>Linear Regression with Multiple Variables</h3>
-			<h3>Octave Tutorial</h3>
+			<h2 class="week-indicator" id="week-2">Week 2<a class="anchor-link" href="#week-2"></a></h2>
+			<h3 id="multivariate-lin-reg">Linear Regression with Multiple Variables<a class="anchor-link" href="#multivariate-lin-reg"></a></h3>
+			<h4 id="multiple-features">Multiple Features<a class="anchor-link" href="#multiple-features"></a></h4>
+			<p>
+				<strong>Notations:</strong>
+				<ul>
+					<li>$n$: number of features</li>
+					<li>$\vec x^{(i)}$: input features of <em>i<sup>th<sup></em> training example</li>
+					<li>$x^{(i)}_j$: value of feature $j$ in <em>i<sup>th<sup></em> training example</li>
+				</ul>
+			</p>
+
+			<h5 class="definition" id="multivariate-hypothesis">Multivariate Hypothesis<a class="anchor-link" href="#multivariate-hypothesis"></a></h5>
+			$$h_\theta = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \cdots + \theta_n x_n$$
+
+			<p>For convenience of notation we'll define $x_0 = 1$ ($x_0^{(i)}$). Thus a feature vector looks like:</p>
+
+			$$ \vec x = \left[\begin{array}{c} x_0\\ x_1 \\ \vdots \\ x_n \end{array}\right] \in \mathbb{R}^{n+1}$$
+
+			<p>And the parameters can be written as:</p>
+
+			$$ \vec \theta = \left[\begin{array}{c} \theta_0\\ \theta_1 \\ \vdots \\ \theta_n \end{array}\right] \in \mathbb{R}^{n+1}$$
+
+			<p>The hypothesis can now be written as:</p>
+
+			$$\begin{align}
+			h_\theta & = \theta_0 x_0 + \theta_1 x_1 + \theta_2 x_2 + \cdots + \theta_n x_n\\
+			& = \left[ \theta_0 \theta_1 \cdots \theta_n \right] \left[\begin{array}{c} \theta_0\\ \theta_1 \\ \vdots \\ \theta_n \end{array}\right] \\
+			& = \boxed{\vec\theta^{T}\vec x}\\
+			\end{align}$$
+
+			<p>This hypothesis is called <em>»Multivariate Linear Regression«</em>.</p>
+
+			<h4 id="multivar-grad-desc">Gradient Descent for Multiple Variables<a class="anchor-link" href="#multivar-grad-desc"></a></h4>
+			<p>The cost function can now be written as:</p>
+
+			$$\begin{aligned}
+			J(\theta_0, \theta_1, ..., \theta_n) & = \frac{1}{2m}\sum^{m}_{i=1} \left(h_\theta(x^{(i)}) - y^{(i)}\right)^2\\
+			& = \boxed{J(\vec\theta)}
+			\end{aligned}$$
+
+			<p>The gradient descent algorithm for this cost function looks like this:</p>
+
+			$$\begin{aligned}
+			\text{repeat} & \{\\
+			& \theta_j := \theta_j - \alpha \frac{\delta}{\delta \theta_j} \; \; J(\theta_0, \theta_1, ... , \theta_n)\\
+			\} \phantom{15pt} &
+			\end{aligned}$$
+
+			<p>Which can also be written like this:</p>
+			$$\begin{aligned}
+			\text{repeat} & \{\\
+			& \theta_j := \theta_j - \alpha \frac{1}{m} \sum^{m}_{i=1}\left( h_\theta(\vec x^{(i)}) -y^{(i)} \right) x_j^{(i)}) \\
+			\} \phantom{15pt} &
+			\end{aligned}$$
+
+			<p>Again, the parameters $\theta_j \; \forall j= 0, ..., n$ have to be updated simultaneously.</p>
+
+			TODO: rest of week II
+
+			<h3 id="octave-tut">Octave Tutorial<a class="anchor-link" href="#octave-tut"></a></h3>
 
 			<hr>
 
-			<h2>Appendix</h2>
-			<h3>Footnotes</h3>
+			<h2 id="appendix">Appendix<a class="anchor-link" href="#appendix"></a></h2>
+			<h3 id="footnotes">Footnotes<a class="anchor-link" href="#footnotes"></a></h3>
+
 			<ol>
 				<li id="footnote1">Taken from the Machine Learning Video Lecture: »What is Machine Learning?«, Minute <code>01:49</code> at <a href="https://class.coursera.org/ml-008/lecture/2" title="Video Lecture on Coursera">Coursera</a></li>
 			</ol>
+
+			<footer class="main-foot">
+				<ul>
+					<li><a href="#top">Back to top</a></li>
+					<li><a href="http://www.kopimi.com/kopimi" title="kopimi"><img src="img/kopimi.svg" class="kopimi"></a></li>
+					<li>By Christian Schulze<br><a href="http://andinfinity.de">andinfinity.de</a></li>
+				</ul>
+			</footer>
 		</div>
 	</body>
 </html>

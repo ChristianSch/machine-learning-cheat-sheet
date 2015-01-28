@@ -15,6 +15,23 @@ h6 {
 	display: block;
 }
 
+h1:hover .anchor-link:before,
+h2:hover .anchor-link:before,
+h3:hover .anchor-link:before,
+h4:hover .anchor-link:before,
+h5:hover .anchor-link:before,
+h6:hover .anchor-link:before {
+	content: '\00B6';
+    color: #555;
+    font-size: .8em;
+}
+
+a.anchor-link {
+    text-decoration: none;
+    margin-left: .5em;
+    font-size: .8em;
+}
+
 h1,
 h2 {
 	text-align: center;
@@ -34,4 +51,38 @@ h2 {
 
 .definition:before {
 	content: 'Definition: ';
+}
+
+.main-foot {
+	border-top: 1px solid #333;
+	margin-top: 5em;
+}
+
+.main-foot ul {
+	margin-left: 0;
+	text-indent: 0;
+	padding-left: 0;
+}
+.main-foot ul li {
+	display: inline-block;
+	width: 32%;
+}
+
+.main-foot ul li:nth-child(1) {
+	text-align: left;
+}
+
+.main-foot ul li:nth-child(2) {
+	text-align: center;
+}
+
+.main-foot ul li:nth-child(3) {
+	text-align: right;
+}
+
+
+.main-foot .kopimi {
+	width: 3em;
+	height: 3em;
+	display: inline-block;
 }

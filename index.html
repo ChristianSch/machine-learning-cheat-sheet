@@ -189,7 +189,42 @@
 
 			<p>Again, the parameters $\theta_j \; \forall j= 0, ..., n$ have to be updated simultaneously.</p>
 
-			TODO: rest of week II
+			<h5 id="feature-scaling">Feature Scaling<a class="anchor-link" href="#feature-scaling"></a></h5>
+			<p>Get every feature into approximately a $-1 \leq x_i \leq 1$ range to
+			optimize the path finding of the gradient descent algorithm.</p>
+
+			<h6 id="mean-norm">Mean Normalization<a class="anchor-link" href="#mean-norm"></a></h6>
+			<p>Replace $x_i$ with $x_i - \mu_i$ to make features have approximately zero mean
+			(does not apply to $x_0 = 1$).</p>
+
+			$$x_1 \leftarrow \frac{x_1 - \mu_1}{s_1}$$
+
+			<p>where $\mu_1$ is the average value of x in the training set and $s_1$ is
+			the range $max - min$ (or standard deviation).</p>
+
+			<h5 id="learning-rate">Learning Rate $\alpha$<a class="anchor-link" href="#learning-rate"></a></h5>
+			<p>General rule: $J(\vec\theta)$ should decrease after every iteration.</p>
+
+			<h6>Example Automatic Convergence Test</h6>
+			<p>Declare convergence if $J(\vec\theta)$ decreases by less than $\epsilon = 10^{-3}$ in one iteration.</p>
+
+			<p>Make sure gradient descent works correctly:</p>
+
+			<ul>
+				<li>If $\alpha$ is too small: slow convergence</li>
+				<li>If $\alpha$ is too large: $J(\vec\theta)$ may not decrease on every iteration and may not converge</li>
+			</ul>
+
+			<p>For $\alpha$ try: $0.001$, $0.003$, $0.01$, $0.03$, $0.1$, $0.3$, $1$ etc.</p>
+
+			
+			<h4 id="poly-reg">Features and Polynomial Regression<a class="anchor-link" href="#poly-reg"></a></h4>
+			<p>You can choose your model to fit to a polynomial if you want it to behave in a
+			specific way. You not only can choose to multiply/divide two or more features to create
+			a new feature, you can also fit your model to a more complex polynomial. If you want your 
+			model to behave for example to increase you could choose to use $(size)^2$, fit it to a 
+			cubic polynomial the same way, or use $\sqrt{size}$.</p>
+
 
 			<h3 id="octave-tut">Octave Tutorial<a class="anchor-link" href="#octave-tut"></a></h3>
 

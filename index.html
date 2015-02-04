@@ -35,7 +35,7 @@
 			<p>This cheatsheet wants to provide an overview of the concepts and the used formulas and definitions of the <em>»Machine Learning«</em> <a href="https://class.coursera.org/ml-008" title="Coursera Online Course: Machine Learning">online course at coursera</a>.</p>
 
 			<div id="last-change">
-				<p>Last changed: <time datetime="2015-02-02">February 2nd, 2015</time></p>
+				<p>Last changed: <time datetime="2015-02-04">February 4nd, 2015</time></p>
 			</div>
 
 			<p><strong>Please note:</strong> I changed the notation very slighty. I'll denote vectors with a little arrow on the top. Example: $\vec\theta$</p>
@@ -224,6 +224,64 @@
 			a new feature, you can also fit your model to a more complex polynomial. If you want your 
 			model to behave for example to increase you could choose to use $(size)^2$, fit it to a 
 			cubic polynomial the same way, or use $\sqrt{size}$.</p>
+
+
+			<h4 id="norm-eq">Normal Equation<a class="anchor-link" href="#norm-eq"></a></h4>
+			<p>An alternative to the gradient descent algorithm is an analytical solution to
+			minimize the cost function $J(\vec\theta)$.</p>
+
+			$$\theta \in \mathbb{R}^{n+1} \;\;\; J(\theta_0, \theta_1, \cdots, \theta_m) = \frac{1}{2m}\sum^{m}_{i=1} \left( h_\theta(x^{(i)} - y^{(i)}\right)^2$$
+
+			$$\frac{\delta}{\delta\theta_j} J(\vec\theta) = \cdots = 0 \;\;\; \text{(for every $j$)}$$
+
+			<p>Then solve for $\theta_0,\theta_1,\cdots,\theta_n$ by setting the equation to equal zero. For $m$ examples $(\vec x^{(i)}, y^{(i)}), \cdots, (\vec x^{(m)}, y^{(m)})$ with $n$ features the input feature of the <em>i<sup>th</sup></em> training example looks like this:</p>
+
+			$$\vec x^{(i)} = \left[ \begin{array}{c} x_0^{(i)}\\ x_1^{(i)} \\ \vdots \\ x_n^{(i)} \end{array} \right] \in \mathbb{R}^{n+1}$$
+
+			<p>The design matrix $x$ then looks like that:</p>
+
+			$$ X = \left[ \begin{array}{c} (x^{(1)})^T \\ (x^{(2)})^T \\ \vdots \\ (x^{(m)})^T \end{array} \right]$$
+
+			<p>and the vector of the outputs of the training examples look like this:</p>
+
+			$$ \vec y = \left[ \begin{array}{c} y^{(1)} \\ y^{(2)} \\ \vdots \\ y^{(m)}\end{array}\right]$$
+
+			<p>With the design matrix the minimum $\vec \theta$ is:</p>
+
+			$$ \vec \theta =  (X^TX)^{-1} X^T \vec y$$
+
+			<p>Note: using this method you don't need to scale the features.</p>
+
+			<h4 id="grad-desc-vers-norm-eq">Gradient Descent versus Normal Equation<a class="anchor-link" href="#grad-desc-vers-norm-eq"></a></h4>
+			<p>For $m$ training examples and $n$ features:</p>
+
+			<div class="two-col">
+				<h5>Gradient Descent:</h5>
+				<ul>
+					<li>Need to choose $\alpha$</li>
+					<li>Needs many iterations</li>
+					<li>Works well even when $n$ is large</li>
+				</ul>
+
+				<br>
+				<br>
+
+				<h5>Normal Equation</h5>
+				<ul>
+					<li>No need to choose $\alpha$</li>
+					<li>Don't need to iterate</li>
+					<li>Need to compute $(X^TX)^{-1})$ (complexity $O(n^3)$)</li>
+					<li>Slow if $n$ is very large</li>
+				</ul>
+			</div>
+
+			<h4 id="norm-eq-noninv">Normal Equation Noninvertibility<a class="anchor-link" href="#norm-eq-noninv"></a></h4>
+			<p>Although very rarely, it can happen that $X^TX$ is non-invertible,
+			for example if the matrix is singular or degenerate.</p>
+
+			<p>Problems can be that redundant features are used (and therefore the vetors are linearly dependent) or that too many features are used (e.g. $m \leq n$). The solution for that
+			would be to delete some features or use regularization (which comes later in this course).</p>
+
 
 
 			<h3 id="octave-tut">Octave Tutorial<a class="anchor-link" href="#octave-tut"></a></h3>

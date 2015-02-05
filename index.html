@@ -1,307 +1,452 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="HandheldFriendly" content="True">
-		<meta name="MobileOptimized" content="320">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-		<link rel="stylesheet" href="css/main.css" type="text/css" media="all">
-
-		<!-- typeplate -->
-		<link rel="stylesheet" href="css/typeplate.css" type="text/css" media="all">
-
-		<!-- MathJax -->
-		<script type="text/x-mathjax-config">
-			MathJax.Hub.Config({
-				extensions: ["tex2jax.js"],
-				jax: ["input/TeX", "output/HTML-CSS"],
-				tex2jax: {
-					inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-					displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-					processEscapes: true
-				},
-				"HTML-CSS": { availableFonts: ["TeX"] }
-			});
-		</script>
-		<script type="text/javascript" src="js/MathJax/MathJax.js"></script>
-	</head>
-
-	<body id="top">
-		<div id="main-wrap">
-			<h1>Machine Learning @ Coursera</h1>
-			<h2 class="sub-h2">A cheat sheet</h2>
-
-			<p>This cheatsheet wants to provide an overview of the concepts and the used formulas and definitions of the <em>»Machine Learning«</em> <a href="https://class.coursera.org/ml-008" title="Coursera Online Course: Machine Learning">online course at coursera</a>.</p>
-
-			<div id="last-change">
-				<p>Last changed: <time datetime="2015-02-04">February 4nd, 2015</time></p>
-			</div>
-
-			<p><strong>Please note:</strong> I changed the notation very slighty. I'll denote vectors with a little arrow on the top. Example: $\vec\theta$</p>
-
-			<h2 class="week-indicator" id="week-1">Week 1<a class="anchor-link" href="#week-1"></a></h2>
-
-			<h3 id="intro">Introduction<a class="anchor-link" href="#intro"></a></h3>
-
-			<h4 class="definition" id="def-ml">Machine Learning<a class="anchor-link" href="#def-ml"></a></h4>
-			<blockquote>
-				»Well-posed Learning Problem: A computer program is said to <em>learn</em>
-				from experience E with respect to some task T and some performance measure E,
-				if its performance on T, as measured by P, improves with experience E.«
-				<br>
-				— <cite>Tom Mitchell (1998)</cite>
-				<sup><a href="#footnote1">[1]</a></sup>
-			</blockquote>
-
-			<h4 class="definition" id="def-sl">Supervised Learning<a class="anchor-link" href="#def-sl"></a></h4>
-			TODO
-
-			<h4 class="definition" id="def-ul">Unsupervised Learning<a class="anchor-link" href="#def-ul"></a></h4>
-			TODO
-
-			<h4 class="definition" id="def-reg-prob">Regression Problem<a class="anchor-link" href="#def-reg-prob"></a></h4>
-			TODO
-
-			<h4 class="definition" id="def-class-prob">Classification Problem<a class="anchor-link" href="#def-class-prob"></a></h4>
-			TODO
-
-			<h3 id="univariate-lin-reg">Linear Regression with One Variable<a class="anchor-link" href="#univariate-lin-reg"></a></h3>
-			<h4 id="model-rep">Model Representation<a class="anchor-link" href="#model-rep"></a></h4>
-			<p>
-				<strong>Notations:</strong>
-				<ul>
-					<li>$m$: number of training examples</li>
-					<li>$x$'s: <em>input</em> variable/features</li>
-					<li>$y$'s: <em>output</em> variables/<em>target</em variable></li>
-					<li>$(x,y)$: one training example</li>
-					<li>$(x^{(i)},y^{(i)})$: $i$<sup>th</sup> training example</li>
-				</ul>
-			</p>
-
-			<h5 class="definition" id="univariate-hypothesis">Univariate Hypothesis<a class="anchor-link" href="#univariate-hypothesis"></a></h5>
-			<p>The hypothesis function maps <em>x's</em> to <em>y's</em> ($h: x \mapsto y$). It can be represented by:</p>
-
-			$$h_{\theta} = \theta_{0} + \theta_{1}x$$
-
-			<p>The shorthand for the hypothesis is $h(x)$. $\theta_{i}$'s are called the parameters of the hypothesis.
-			In this case the hypothesis is called <em>»Univariate Linear Regression«</em>.</p>
-
-			<h4 id="cost-function">Cost Function<a class="anchor-link" href="#cost-function"></a></h4>
-			<h5 class="definition" id="def-secf">Squared Error Cost Function<a class="anchor-link" href="#def-secf"></a></h5>
-			$$J(\theta_0, \theta_1) = \frac{1}{2m} \sum^{m}_{i=1}\left(h_{\theta}(x^{(i)}) - y^{(i)}\right)^2$$
-
-			<h4 class="def" id="grad-dec">The Gradient Descent Algorithm<a class="anchor-link" href="#grad-dec"></a></h4>
-			<p>The goal is to choose the hypothises' parameters in a manner that the the output of the cost function $J(\theta_0, \theta_1)$ is minimal.</p>
-
-			<p><strong>Outline:</strong>
-				<ul>
-					<li>Start with some $\theta_0, \theta_1$</li>
-					<li>Keep changing $\theta_0, \theta_1$ to reduce $J(\theta_0, \theta_1)$ until we hopefully end up at a minimum</li>
-				</ul>
-			</p>
-
-			<h5 class="definition" id="def-grad-dec">Gradient Descent Algorithm<a class="anchor-link" href="#def-grad-dec"></a></h5>
-			<p>Note that the values of $\theta_0$ and $\theta_1$ are updated simultaneously. $\alpha$ is called the <em>learning rate.</em></p>
-			$$\begin{aligned}
-			\text{repeat} & \text{ until convergence} \; \{\\
-			& \theta_j := \theta_j - \alpha \frac{\delta}{\delta\theta_j} J(\theta_0, \theta_1) \;\; \text{(for j=0 and j=1)}\\
-			\} \phantom{15pt} &
-			\end{aligned}$$
+    <head>
+        <meta charset="utf-8">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="css/main.css" type="text/css" media="all">
+
+        <!-- typeplate -->
+        <link rel="stylesheet" href="css/typeplate.css" type="text/css" media="all">
+
+        <!-- MathJax -->
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+                extensions: ["tex2jax.js"],
+                jax: ["input/TeX", "output/HTML-CSS"],
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                    processEscapes: true
+                },
+                "HTML-CSS": { availableFonts: ["TeX"] }
+            });
+        </script>
+        <script type="text/javascript" src="js/MathJax/MathJax.js"></script>
+
+        <!-- Highlight.js -->
+        <link rel="stylesheet" href="js/Highlight.js/styles/default.css">
+        <script src="js/Highlight.js/highlight.pack.js" type="text/javascript"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </head>
+
+    <body id="top">
+        <div id="main-wrap">
+            <h1>Machine Learning @ Coursera</h1>
+            <h2 class="sub-h2">A cheat sheet</h2>
+
+            <p>This cheatsheet wants to provide an overview of the concepts and the used formulas and definitions of the <em>»Machine Learning«</em> <a href="https://class.coursera.org/ml-008" title="Coursera Online Course: Machine Learning">online course at coursera</a>.</p>
+
+            <div id="last-change">
+                <p>Last changed: <time datetime="2015-02-04">February 4nd, 2015</time></p>
+            </div>
+
+            <p><strong>Please note:</strong> I changed the notation very slighty. I'll denote vectors with a little arrow on the top. Example: $\vec\theta$</p>
+
+            <h2 class="week-indicator" id="week-1">Week 1<a class="anchor-link" href="#week-1"></a></h2>
+
+            <h3 id="intro">Introduction<a class="anchor-link" href="#intro"></a></h3>
+
+            <h4 class="definition" id="def-ml">Machine Learning<a class="anchor-link" href="#def-ml"></a></h4>
+            <blockquote>
+                »Well-posed Learning Problem: A computer program is said to <em>learn</em>
+                from experience E with respect to some task T and some performance measure E,
+                if its performance on T, as measured by P, improves with experience E.«
+                <br>
+                — <cite>Tom Mitchell (1998)</cite>
+                <sup><a href="#footnote1">[1]</a></sup>
+            </blockquote>
+
+            <h4 class="definition" id="def-sl">Supervised Learning<a class="anchor-link" href="#def-sl"></a></h4>
+            TODO
+
+            <h4 class="definition" id="def-ul">Unsupervised Learning<a class="anchor-link" href="#def-ul"></a></h4>
+            TODO
+
+            <h4 class="definition" id="def-reg-prob">Regression Problem<a class="anchor-link" href="#def-reg-prob"></a></h4>
+            TODO
+
+            <h4 class="definition" id="def-class-prob">Classification Problem<a class="anchor-link" href="#def-class-prob"></a></h4>
+            TODO
+
+            <h3 id="univariate-lin-reg">Linear Regression with One Variable<a class="anchor-link" href="#univariate-lin-reg"></a></h3>
+            <h4 id="model-rep">Model Representation<a class="anchor-link" href="#model-rep"></a></h4>
+            <p>
+                <strong>Notations:</strong>
+                <ul>
+                    <li>$m$: number of training examples</li>
+                    <li>$x$'s: <em>input</em> variable/features</li>
+                    <li>$y$'s: <em>output</em> variables/<em>target</em variable></li>
+                    <li>$(x,y)$: one training example</li>
+                    <li>$(x^{(i)},y^{(i)})$: $i$<sup>th</sup> training example</li>
+                </ul>
+            </p>
+
+            <h5 class="definition" id="univariate-hypothesis">Univariate Hypothesis<a class="anchor-link" href="#univariate-hypothesis"></a></h5>
+            <p>The hypothesis function maps <em>x's</em> to <em>y's</em> ($h: x \mapsto y$). It can be represented by:</p>
+
+            $$h_{\theta} = \theta_{0} + \theta_{1}x$$
+
+            <p>The shorthand for the hypothesis is $h(x)$. $\theta_{i}$'s are called the parameters of the hypothesis.
+            In this case the hypothesis is called <em>»Univariate Linear Regression«</em>.</p>
+
+            <h4 id="cost-function">Cost Function<a class="anchor-link" href="#cost-function"></a></h4>
+            <h5 class="definition" id="def-secf">Squared Error Cost Function<a class="anchor-link" href="#def-secf"></a></h5>
+            $$J(\theta_0, \theta_1) = \frac{1}{2m} \sum^{m}_{i=1}\left(h_{\theta}(x^{(i)}) - y^{(i)}\right)^2$$
+
+            <h4 class="def" id="grad-dec">The Gradient Descent Algorithm<a class="anchor-link" href="#grad-dec"></a></h4>
+            <p>The goal is to choose the hypothises' parameters in a manner that the the output of the cost function $J(\theta_0, \theta_1)$ is minimal.</p>
+
+            <p><strong>Outline:</strong>
+                <ul>
+                    <li>Start with some $\theta_0, \theta_1$</li>
+                    <li>Keep changing $\theta_0, \theta_1$ to reduce $J(\theta_0, \theta_1)$ until we hopefully end up at a minimum</li>
+                </ul>
+            </p>
+
+            <h5 class="definition" id="def-grad-dec">Gradient Descent Algorithm<a class="anchor-link" href="#def-grad-dec"></a></h5>
+            <p>Note that the values of $\theta_0$ and $\theta_1$ are updated simultaneously. $\alpha$ is called the <em>learning rate.</em></p>
+            $$\begin{aligned}
+            \text{repeat} & \text{ until convergence} \; \{\\
+            & \theta_j := \theta_j - \alpha \frac{\delta}{\delta\theta_j} J(\theta_0, \theta_1) \;\; \text{(for j=0 and j=1)}\\
+            \} \phantom{15pt} &
+            \end{aligned}$$
+
+            <p>The correct implementation of the simultaneous update looks like this:</p>
+            $$\begin{aligned}
+            & temp0 := \theta_0 - \alpha \frac{\delta}{\delta\theta_j} J(\theta_0, \theta_1)\\
+            & temp1 := \theta_1 - \alpha \frac{\delta}{\delta\theta_j} J(\theta_0, \theta_1)\\
+            & \theta_0 := temp0 \\
+            & \theta_1 := temp1
+            \end{aligned}$$ 
+
+            <h5 id="part-der-cf">Partial derivitive of the cost function<a class="anchor-link" href="#part-der-cf"></a></h5>
+            $$\begin{aligned}
+            \text{repeat} & \text{ until convergence} \; \{\\
+            & \theta_0 := \theta_0 - \alpha \frac1{1}{m}\sum^{m}_{i=0}\left(h_\theta(x^{(i)}) - y^{(i)}\right)\\
+            & \theta_1 := \theta_1 - \alpha \frac1{1}{m}\sum^{m}_{i=0}\left(h_\theta(x^{(i)}) - y^{(i)}\right) \cdot x^{(i)}\\
+            \} \phantom{15pt} &
+            \end{aligned}$$
+
+
+            <p><strong>Note:</strong> The cost function $J(\theta_0, \theta_1)$ is <em>convex</em> and therefore has only one optimum overall.</p>
 
-			<p>The correct implementation of the simultaneous update looks like this:</p>
-			$$\begin{aligned}
-			& temp0 := \theta_0 - \alpha \frac{\delta}{\delta\theta_j} J(\theta_0, \theta_1)\\
-			& temp1 := \theta_1 - \alpha \frac{\delta}{\delta\theta_j} J(\theta_0, \theta_1)\\
-			& \theta_0 := temp0 \\
-			& \theta_1 := temp1
-			\end{aligned}$$ 
+            <h5 class="definition" id="def-batch-grad-dec">Batch Gradient Descent<a class="anchor-link" href="#def-batch-grad-dec"></a></h5>
+            <p>If the gradient descent uses all $m$ training examples in each iteration it is also called <em>Batch Gradient Descent Algorithm</em>.</p>
 
-			<h5 id="part-der-cf">Partial derivitive of the cost function<a class="anchor-link" href="#part-der-cf"></a></h5>
-			$$\begin{aligned}
-			\text{repeat} & \text{ until convergence} \; \{\\
-			& \theta_0 := \theta_0 - \alpha \frac1{1}{m}\sum^{m}_{i=0}\left(h_\theta(x^{(i)}) - y^{(i)}\right)\\
-			& \theta_1 := \theta_1 - \alpha \frac1{1}{m}\sum^{m}_{i=0}\left(h_\theta(x^{(i)}) - y^{(i)}\right) \cdot x^{(i)}\\
-			\} \phantom{15pt} &
-			\end{aligned}$$
+            <h2 class="week-indicator" id="week-2">Week 2<a class="anchor-link" href="#week-2"></a></h2>
+            <h3 id="multivariate-lin-reg">Linear Regression with Multiple Variables<a class="anchor-link" href="#multivariate-lin-reg"></a></h3>
+            <h4 id="multiple-features">Multiple Features<a class="anchor-link" href="#multiple-features"></a></h4>
+            <p>
+                <strong>Notations:</strong>
+                <ul>
+                    <li>$n$: number of features</li>
+                    <li>$\vec x^{(i)}$: input features of <em>i<sup>th<sup></em> training example</li>
+                    <li>$x^{(i)}_j$: value of feature $j$ in <em>i<sup>th<sup></em> training example</li>
+                </ul>
+            </p>
 
+            <h5 class="definition" id="multivariate-hypothesis">Multivariate Hypothesis<a class="anchor-link" href="#multivariate-hypothesis"></a></h5>
+            $$h_\theta = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \cdots + \theta_n x_n$$
 
-			<p><strong>Note:</strong> The cost function $J(\theta_0, \theta_1)$ is <em>convex</em> and therefore has only one optimum overall.</p>
+            <p>For convenience of notation we'll define $x_0 = 1$ ($x_0^{(i)}$). Thus a feature vector looks like:</p>
 
-			<h5 class="definition" id="def-batch-grad-dec">Batch Gradient Descent<a class="anchor-link" href="#def-batch-grad-dec"></a></h5>
-			<p>If the gradient descent uses all $m$ training examples in each iteration it is also called <em>Batch Gradient Descent Algorithm</em>.</p>
+            $$ \vec x = \left[\begin{array}{c} x_0\\ x_1 \\ \vdots \\ x_n \end{array}\right] \in \mathbb{R}^{n+1}$$
 
-			<h2 class="week-indicator" id="week-2">Week 2<a class="anchor-link" href="#week-2"></a></h2>
-			<h3 id="multivariate-lin-reg">Linear Regression with Multiple Variables<a class="anchor-link" href="#multivariate-lin-reg"></a></h3>
-			<h4 id="multiple-features">Multiple Features<a class="anchor-link" href="#multiple-features"></a></h4>
-			<p>
-				<strong>Notations:</strong>
-				<ul>
-					<li>$n$: number of features</li>
-					<li>$\vec x^{(i)}$: input features of <em>i<sup>th<sup></em> training example</li>
-					<li>$x^{(i)}_j$: value of feature $j$ in <em>i<sup>th<sup></em> training example</li>
-				</ul>
-			</p>
+            <p>And the parameters can be written as:</p>
 
-			<h5 class="definition" id="multivariate-hypothesis">Multivariate Hypothesis<a class="anchor-link" href="#multivariate-hypothesis"></a></h5>
-			$$h_\theta = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \cdots + \theta_n x_n$$
+            $$ \vec \theta = \left[\begin{array}{c} \theta_0\\ \theta_1 \\ \vdots \\ \theta_n \end{array}\right] \in \mathbb{R}^{n+1}$$
 
-			<p>For convenience of notation we'll define $x_0 = 1$ ($x_0^{(i)}$). Thus a feature vector looks like:</p>
+            <p>The hypothesis can now be written as:</p>
 
-			$$ \vec x = \left[\begin{array}{c} x_0\\ x_1 \\ \vdots \\ x_n \end{array}\right] \in \mathbb{R}^{n+1}$$
+            $$\begin{align}
+            h_\theta & = \theta_0 x_0 + \theta_1 x_1 + \theta_2 x_2 + \cdots + \theta_n x_n\\
+            & = \left[ \theta_0 \theta_1 \cdots \theta_n \right] \left[\begin{array}{c} \theta_0\\ \theta_1 \\ \vdots \\ \theta_n \end{array}\right] \\
+            & = \boxed{\vec\theta^{T}\vec x}\\
+            \end{align}$$
 
-			<p>And the parameters can be written as:</p>
+            <p>This hypothesis is called <em>»Multivariate Linear Regression«</em>.</p>
 
-			$$ \vec \theta = \left[\begin{array}{c} \theta_0\\ \theta_1 \\ \vdots \\ \theta_n \end{array}\right] \in \mathbb{R}^{n+1}$$
+            <h4 id="multivar-grad-desc">Gradient Descent for Multiple Variables<a class="anchor-link" href="#multivar-grad-desc"></a></h4>
+            <p>The cost function can now be written as:</p>
 
-			<p>The hypothesis can now be written as:</p>
+            $$\begin{aligned}
+            J(\theta_0, \theta_1, ..., \theta_n) & = \frac{1}{2m}\sum^{m}_{i=1} \left(h_\theta(x^{(i)}) - y^{(i)}\right)^2\\
+            & = \boxed{J(\vec\theta)}
+            \end{aligned}$$
 
-			$$\begin{align}
-			h_\theta & = \theta_0 x_0 + \theta_1 x_1 + \theta_2 x_2 + \cdots + \theta_n x_n\\
-			& = \left[ \theta_0 \theta_1 \cdots \theta_n \right] \left[\begin{array}{c} \theta_0\\ \theta_1 \\ \vdots \\ \theta_n \end{array}\right] \\
-			& = \boxed{\vec\theta^{T}\vec x}\\
-			\end{align}$$
+            <p>The gradient descent algorithm for this cost function looks like this:</p>
 
-			<p>This hypothesis is called <em>»Multivariate Linear Regression«</em>.</p>
+            $$\begin{aligned}
+            \text{repeat} & \{\\
+            & \theta_j := \theta_j - \alpha \frac{\delta}{\delta \theta_j} \; \; J(\theta_0, \theta_1, ... , \theta_n)\\
+            \} \phantom{15pt} &
+            \end{aligned}$$
 
-			<h4 id="multivar-grad-desc">Gradient Descent for Multiple Variables<a class="anchor-link" href="#multivar-grad-desc"></a></h4>
-			<p>The cost function can now be written as:</p>
+            <p>Which can also be written like this:</p>
+            $$\begin{aligned}
+            \text{repeat} & \{\\
+            & \theta_j := \theta_j - \alpha \frac{1}{m} \sum^{m}_{i=1}\left( h_\theta(\vec x^{(i)}) -y^{(i)} \right) x_j^{(i)}) \\
+            \} \phantom{15pt} &
+            \end{aligned}$$
 
-			$$\begin{aligned}
-			J(\theta_0, \theta_1, ..., \theta_n) & = \frac{1}{2m}\sum^{m}_{i=1} \left(h_\theta(x^{(i)}) - y^{(i)}\right)^2\\
-			& = \boxed{J(\vec\theta)}
-			\end{aligned}$$
+            <p>Again, the parameters $\theta_j \; \forall j= 0, ..., n$ have to be updated simultaneously.</p>
 
-			<p>The gradient descent algorithm for this cost function looks like this:</p>
+            <h5 id="feature-scaling">Feature Scaling<a class="anchor-link" href="#feature-scaling"></a></h5>
+            <p>Get every feature into approximately a $-1 \leq x_i \leq 1$ range to
+            optimize the path finding of the gradient descent algorithm.</p>
 
-			$$\begin{aligned}
-			\text{repeat} & \{\\
-			& \theta_j := \theta_j - \alpha \frac{\delta}{\delta \theta_j} \; \; J(\theta_0, \theta_1, ... , \theta_n)\\
-			\} \phantom{15pt} &
-			\end{aligned}$$
+            <h6 id="mean-norm">Mean Normalization<a class="anchor-link" href="#mean-norm"></a></h6>
+            <p>Replace $x_i$ with $x_i - \mu_i$ to make features have approximately zero mean
+            (does not apply to $x_0 = 1$).</p>
 
-			<p>Which can also be written like this:</p>
-			$$\begin{aligned}
-			\text{repeat} & \{\\
-			& \theta_j := \theta_j - \alpha \frac{1}{m} \sum^{m}_{i=1}\left( h_\theta(\vec x^{(i)}) -y^{(i)} \right) x_j^{(i)}) \\
-			\} \phantom{15pt} &
-			\end{aligned}$$
+            $$x_1 \leftarrow \frac{x_1 - \mu_1}{s_1}$$
 
-			<p>Again, the parameters $\theta_j \; \forall j= 0, ..., n$ have to be updated simultaneously.</p>
+            <p>where $\mu_1$ is the average value of x in the training set and $s_1$ is
+            the range $max - min$ (or standard deviation).</p>
 
-			<h5 id="feature-scaling">Feature Scaling<a class="anchor-link" href="#feature-scaling"></a></h5>
-			<p>Get every feature into approximately a $-1 \leq x_i \leq 1$ range to
-			optimize the path finding of the gradient descent algorithm.</p>
+            <h5 id="learning-rate">Learning Rate $\alpha$<a class="anchor-link" href="#learning-rate"></a></h5>
+            <p>General rule: $J(\vec\theta)$ should decrease after every iteration.</p>
 
-			<h6 id="mean-norm">Mean Normalization<a class="anchor-link" href="#mean-norm"></a></h6>
-			<p>Replace $x_i$ with $x_i - \mu_i$ to make features have approximately zero mean
-			(does not apply to $x_0 = 1$).</p>
+            <h6>Example Automatic Convergence Test</h6>
+            <p>Declare convergence if $J(\vec\theta)$ decreases by less than $\epsilon = 10^{-3}$ in one iteration.</p>
 
-			$$x_1 \leftarrow \frac{x_1 - \mu_1}{s_1}$$
+            <p>Make sure gradient descent works correctly:</p>
 
-			<p>where $\mu_1$ is the average value of x in the training set and $s_1$ is
-			the range $max - min$ (or standard deviation).</p>
+            <ul>
+                <li>If $\alpha$ is too small: slow convergence</li>
+                <li>If $\alpha$ is too large: $J(\vec\theta)$ may not decrease on every iteration and may not converge</li>
+            </ul>
 
-			<h5 id="learning-rate">Learning Rate $\alpha$<a class="anchor-link" href="#learning-rate"></a></h5>
-			<p>General rule: $J(\vec\theta)$ should decrease after every iteration.</p>
+            <p>For $\alpha$ try: $0.001$, $0.003$, $0.01$, $0.03$, $0.1$, $0.3$, $1$ etc.</p>
 
-			<h6>Example Automatic Convergence Test</h6>
-			<p>Declare convergence if $J(\vec\theta)$ decreases by less than $\epsilon = 10^{-3}$ in one iteration.</p>
+            
+            <h4 id="poly-reg">Features and Polynomial Regression<a class="anchor-link" href="#poly-reg"></a></h4>
+            <p>You can choose your model to fit to a polynomial if you want it to behave in a
+            specific way. You not only can choose to multiply/divide two or more features to create
+            a new feature, you can also fit your model to a more complex polynomial. If you want your 
+            model to behave for example to increase you could choose to use $(size)^2$, fit it to a 
+            cubic polynomial the same way, or use $\sqrt{size}$.</p>
 
-			<p>Make sure gradient descent works correctly:</p>
 
-			<ul>
-				<li>If $\alpha$ is too small: slow convergence</li>
-				<li>If $\alpha$ is too large: $J(\vec\theta)$ may not decrease on every iteration and may not converge</li>
-			</ul>
+            <h4 id="norm-eq">Normal Equation<a class="anchor-link" href="#norm-eq"></a></h4>
+            <p>An alternative to the gradient descent algorithm is an analytical solution to
+            minimize the cost function $J(\vec\theta)$.</p>
 
-			<p>For $\alpha$ try: $0.001$, $0.003$, $0.01$, $0.03$, $0.1$, $0.3$, $1$ etc.</p>
+            $$\theta \in \mathbb{R}^{n+1} \;\;\; J(\theta_0, \theta_1, \cdots, \theta_m) = \frac{1}{2m}\sum^{m}_{i=1} \left( h_\theta(x^{(i)} - y^{(i)}\right)^2$$
 
-			
-			<h4 id="poly-reg">Features and Polynomial Regression<a class="anchor-link" href="#poly-reg"></a></h4>
-			<p>You can choose your model to fit to a polynomial if you want it to behave in a
-			specific way. You not only can choose to multiply/divide two or more features to create
-			a new feature, you can also fit your model to a more complex polynomial. If you want your 
-			model to behave for example to increase you could choose to use $(size)^2$, fit it to a 
-			cubic polynomial the same way, or use $\sqrt{size}$.</p>
+            $$\frac{\delta}{\delta\theta_j} J(\vec\theta) = \cdots = 0 \;\;\; \text{(for every $j$)}$$
 
+            <p>Then solve for $\theta_0,\theta_1,\cdots,\theta_n$ by setting the equation to equal zero. For $m$ examples $(\vec x^{(i)}, y^{(i)}), \cdots, (\vec x^{(m)}, y^{(m)})$ with $n$ features the input feature of the <em>i<sup>th</sup></em> training example looks like this:</p>
 
-			<h4 id="norm-eq">Normal Equation<a class="anchor-link" href="#norm-eq"></a></h4>
-			<p>An alternative to the gradient descent algorithm is an analytical solution to
-			minimize the cost function $J(\vec\theta)$.</p>
+            $$\vec x^{(i)} = \left[ \begin{array}{c} x_0^{(i)}\\ x_1^{(i)} \\ \vdots \\ x_n^{(i)} \end{array} \right] \in \mathbb{R}^{n+1}$$
 
-			$$\theta \in \mathbb{R}^{n+1} \;\;\; J(\theta_0, \theta_1, \cdots, \theta_m) = \frac{1}{2m}\sum^{m}_{i=1} \left( h_\theta(x^{(i)} - y^{(i)}\right)^2$$
+            <p>The design matrix $x$ then looks like that:</p>
 
-			$$\frac{\delta}{\delta\theta_j} J(\vec\theta) = \cdots = 0 \;\;\; \text{(for every $j$)}$$
+            $$ X = \left[ \begin{array}{c} (x^{(1)})^T \\ (x^{(2)})^T \\ \vdots \\ (x^{(m)})^T \end{array} \right]$$
 
-			<p>Then solve for $\theta_0,\theta_1,\cdots,\theta_n$ by setting the equation to equal zero. For $m$ examples $(\vec x^{(i)}, y^{(i)}), \cdots, (\vec x^{(m)}, y^{(m)})$ with $n$ features the input feature of the <em>i<sup>th</sup></em> training example looks like this:</p>
+            <p>and the vector of the outputs of the training examples look like this:</p>
 
-			$$\vec x^{(i)} = \left[ \begin{array}{c} x_0^{(i)}\\ x_1^{(i)} \\ \vdots \\ x_n^{(i)} \end{array} \right] \in \mathbb{R}^{n+1}$$
+            $$ \vec y = \left[ \begin{array}{c} y^{(1)} \\ y^{(2)} \\ \vdots \\ y^{(m)}\end{array}\right]$$
 
-			<p>The design matrix $x$ then looks like that:</p>
+            <p>With the design matrix the minimum $\vec \theta$ is:</p>
 
-			$$ X = \left[ \begin{array}{c} (x^{(1)})^T \\ (x^{(2)})^T \\ \vdots \\ (x^{(m)})^T \end{array} \right]$$
+            $$ \vec \theta =  (X^TX)^{-1} X^T \vec y$$
 
-			<p>and the vector of the outputs of the training examples look like this:</p>
+            <p>Note: using this method you don't need to scale the features.</p>
 
-			$$ \vec y = \left[ \begin{array}{c} y^{(1)} \\ y^{(2)} \\ \vdots \\ y^{(m)}\end{array}\right]$$
+            <h4 id="grad-desc-vers-norm-eq">Gradient Descent versus Normal Equation<a class="anchor-link" href="#grad-desc-vers-norm-eq"></a></h4>
+            <p>For $m$ training examples and $n$ features:</p>
 
-			<p>With the design matrix the minimum $\vec \theta$ is:</p>
+            <div class="two-col">
+                <h5>Gradient Descent:</h5>
+                <ul>
+                    <li>Need to choose $\alpha$</li>
+                    <li>Needs many iterations</li>
+                    <li>Works well even when $n$ is large</li>
+                </ul>
 
-			$$ \vec \theta =  (X^TX)^{-1} X^T \vec y$$
+                <br>
+                <br>
 
-			<p>Note: using this method you don't need to scale the features.</p>
+                <h5>Normal Equation</h5>
+                <ul>
+                    <li>No need to choose $\alpha$</li>
+                    <li>Don't need to iterate</li>
+                    <li>Need to compute $(X^TX)^{-1})$ (complexity $O(n^3)$)</li>
+                    <li>Slow if $n$ is very large</li>
+                </ul>
+            </div>
 
-			<h4 id="grad-desc-vers-norm-eq">Gradient Descent versus Normal Equation<a class="anchor-link" href="#grad-desc-vers-norm-eq"></a></h4>
-			<p>For $m$ training examples and $n$ features:</p>
+            <h4 id="norm-eq-noninv">Normal Equation Noninvertibility<a class="anchor-link" href="#norm-eq-noninv"></a></h4>
+            <p>Although very rarely, it can happen that $X^TX$ is non-invertible,
+            for example if the matrix is singular or degenerate.</p>
 
-			<div class="two-col">
-				<h5>Gradient Descent:</h5>
-				<ul>
-					<li>Need to choose $\alpha$</li>
-					<li>Needs many iterations</li>
-					<li>Works well even when $n$ is large</li>
-				</ul>
+            <p>Problems can be that redundant features are used (and therefore the vetors are linearly dependent) or that too many features are used (e.g. $m \leq n$). The solution for that
+            would be to delete some features or use regularization (which comes later in this course).</p>
 
-				<br>
-				<br>
+            <h3 id="octave-tut">Octave Tutorial<a class="anchor-link" href="#octave-tut"></a></h3>
+            <h4>Basic Operations</h4>
+            <h5>Elementary Operations</h5>
 
-				<h5>Normal Equation</h5>
-				<ul>
-					<li>No need to choose $\alpha$</li>
-					<li>Don't need to iterate</li>
-					<li>Need to compute $(X^TX)^{-1})$ (complexity $O(n^3)$)</li>
-					<li>Slow if $n$ is very large</li>
-				</ul>
-			</div>
+            <pre><code class="scilab">5 + 6 % addition
+3 - 2 % subtraction
+5 * 7 % multiplication
+1 / 2 % division
+2^6 % power
+            </code></pre>
 
-			<h4 id="norm-eq-noninv">Normal Equation Noninvertibility<a class="anchor-link" href="#norm-eq-noninv"></a></h4>
-			<p>Although very rarely, it can happen that $X^TX$ is non-invertible,
-			for example if the matrix is singular or degenerate.</p>
+            <h5>Logical Operations</h5>
 
-			<p>Problems can be that redundant features are used (and therefore the vetors are linearly dependent) or that too many features are used (e.g. $m \leq n$). The solution for that
-			would be to delete some features or use regularization (which comes later in this course).</p>
+            <pre><code class="scilab">1 == 2 % equality
+1 ~= 2 % nonequality
+1 && 0 % logical and
+1 || 0 % or
+xor(1,0) % xor</code></pre>
 
+            <h5>Prompt</h5>
+            <p>The prompt can be modified by <code class="Scilog">PS^('>> ')</code>.</p>
 
+            <h5>Working with variables</h5>
+            <h6>Assignments</h6>
+            <pre><code class="scilab">a = 3
+a = 3; % comma supresses the output
+b = 'hi';
+c = (3 >= 1);</code></pre>
 
-			<h3 id="octave-tut">Octave Tutorial<a class="anchor-link" href="#octave-tut"></a></h3>
+            <h6>Printing</h6>
+            <pre><code class="scilab">a = pi;
+a % => 3.1416
 
-			<hr>
+disp(a) % disp is used for more complex values
 
-			<h2 id="appendix">Appendix<a class="anchor-link" href="#appendix"></a></h2>
-			<h3 id="footnotes">Footnotes<a class="anchor-link" href="#footnotes"></a></h3>
+% formatted output
+disp(sprintf('2 decimals: %0.2f', a))
+% => 2 decimals: 3.14
+disp(sprintf('6 decimals: %0.6f', a))
+% => 2 decimals: 3.141593
 
-			<ol>
-				<li id="footnote1">Taken from the Machine Learning Video Lecture: »What is Machine Learning?«, Minute <code>01:49</code> at <a href="https://class.coursera.org/ml-008/lecture/2" title="Video Lecture on Coursera">Coursera</a></li>
-			</ol>
+format long
+a % => 3.14159265358979
 
-			<footer class="main-foot">
-				<ul>
-					<li><a href="#top">Back to top</a></li>
-					<li><a href="http://www.kopimi.com/kopimi" title="kopimi"><img src="img/kopimi.svg" class="kopimi"></a></li>
-					<li>By Christian Schulze<br><a href="http://andinfinity.de">andinfinity.de</a></li>
-				</ul>
-			</footer>
-		</div>
-	</body>
+format short
+a % => 3.1416</code></pre>
+
+            <h5>Matrixes and Vectors</h5>
+            <pre><code class="scilab">A = [1 2; 3 4; 5 6]
+
+v = [1 2 3] % row vector
+v = [1; 2; 3] % column vector</code></pre>
+
+            <h6>Ranges</h6>
+<pre><code class="scilab">% ranges
+% elements range from 1.0, 1.1 ... to 2.0
+v = 1:0.1:2
+
+% (elements range from one to six)
+v = 1:6</code></pre>
+
+            <h6>Zero and One filled Matrixes</h6>
+<pre><code class="scilab">% matrix filled with ones
+one(2,3)
+C = 2 * ones(2,3)
+
+% would be the same as:
+C  = [2 2 2; 2 2 2]
+
+W = ones(1,3) % row vector of three ones
+W = zeros(1,3) % same with zeros</code></pre>
+            
+            <h6>Matrixes with Random Values</h6>
+<pre><code class="scilab">rand(3,3) % 3 by 3 matrix with random values from [0, 1]
+
+W = randn(1,3) % random values from a gaussian distribution
+
+w = -6 + sqrt(10)*(randn(1,10000));
+% vector of 10k elements
+
+% you can view the distribution of the 
+% values with a histogram
+hist(w) % histogram of values of w
+
+hist(w,50) % same but with 50 buckets</code></pre>
+
+            <h6>Identity Matrixes</h6>
+<pre><code class="scilab">eye(4) % 4 by 4 identity matrix</code></pre>
+
+            <h5>Help</h5>
+            <p>By typing <code>help eye</code> (or another function) help for this function is shown.</p>
+
+            <h4>Moving Data Around</h4>
+
+            <h5>Directories and Files</h5>
+            <p><code class="scilab">pwd</code> prints the current working directory, and <code class="scilab">ls</code>
+            lists all files and directories in the current working directory.</p>
+
+            <p>With <code class="scilab">load featuresX.dat</code> loads the file as <code class="scilab">featuresX</code>.
+            <code class="scilab">who</code> lists all the variables in the current working space.
+            For a more detailed view of all the variables you can use <code class="scilab">whos</code>.
+            To clear a specific value you can use <code class="scilab">clear featuresX</code>.</p>
+
+            <p>By using <code class="scilab">save hello.mat v;</code> the content of the vector <code class="scilab">v</code>
+            gets saved to <code class="scilab">hello.mat</code> in a compressed binary format. To save it in a
+            human readable format use <code class="scilab">save hello.txt v -ascii</code>.</p>
+
+            <h5>Matrix Sizing</h5>
+<pre><code class="scilab">A = [1 2; 3 4; 5 6]
+size(A) % matrix of [2 3]
+size(A,1) % => 3
+size(A,2) % => 2
+
+v = [1 2 3 4]
+length(v) % => 4
+length([1;2;3;4;5]) % => 5</code></pre>
+
+            <h5>Access Elements in a Matrix or Vector</h5>
+<pre><code class="scilab">A = [1 2; 3 4; 5 6]
+A(1,2) % => 2
+
+A(1,:) % everything from the first row
+
+A(:,2) % everything from the second column
+
+A([1 3], :) % everything from the first and third row
+
+A(:,2) = [10; 11; 12] % replaces the second column with the values 10,11,12</code></pre>
+
+            <h5>Appending and Concatenating Matrixes and Vectors</h5>
+<pre><code class="scilab">A = [A, [100; 200; 300]]; % append another column on the right</code></pre>
+
+<pre><code class="scilab">A = [1 2; 3 4; 5 6];
+B = [10 11; 12 13; 14 15];
+
+C = [A B]; % combine A and B to a new matrix (with 4 columns and 3 rows)
+C = [A,B]; % the same
+
+C = [A;B]; % combine A and B (with 2 colums and 6 rows)</code></pre>
+
+            <h5>Special Syntax: Put all Values of a Matrix in A Single Vector</h5>
+<pre><code class="scilab">A(:)</code></pre>
+
+
+            <hr>
+
+            <h2 id="appendix">Appendix<a class="anchor-link" href="#appendix"></a></h2>
+            <h3 id="footnotes">Footnotes<a class="anchor-link" href="#footnotes"></a></h3>
+
+            <ol>
+                <li id="footnote1">Taken from the Machine Learning Video Lecture: »What is Machine Learning?«, Minute <code>01:49</code> at <a href="https://class.coursera.org/ml-008/lecture/2" title="Video Lecture on Coursera">Coursera</a></li>
+            </ol>
+
+            <footer class="main-foot">
+                <ul>
+                    <li><a href="#top">Back to top</a></li>
+                    <li><a href="http://www.kopimi.com/kopimi" title="kopimi"><img src="img/kopimi.svg" class="kopimi"></a></li>
+                    <li>By Christian Schulze<br><a href="http://andinfinity.de">andinfinity.de</a></li>
+                </ul>
+            </footer>
+        </div>
+    </body>
 </html>

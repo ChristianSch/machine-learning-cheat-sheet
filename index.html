@@ -430,6 +430,88 @@ C = [A;B]; % combine A and B (with 2 colums and 6 rows)</code></pre>
             <h5>Special Syntax: Put all Values of a Matrix in A Single Vector</h5>
 <pre><code class="scilab">A(:)</code></pre>
 
+            <h4>Computation on Data</h4>
+            <p>With given matrixes</p>
+<pre><code class="scilab">A = [1 2; 3 4; 5 6]
+B = 11 12; 13 14; 15 16]
+C = [1 1; 2 2]</code></pre>
+
+            <p>Matrixmultiplication works as follows:</p>
+            <pre><code class="scilab">A * C</code></pre>
+
+            <p>Now to multiply element wise:</p>
+            <pre><code class="scilab">A .* B</code></pre>
+
+            <p>The dot denotes element wise operations, for example element wise squaring:</p>
+            <pre><code class="scilab">A .^ 2</code></pre>
+
+            <p>With a vector $\vec v$ the element wise reciprocal (or inverse):</p>
+            <pre><code class="scilab">v = [1; 2; 3]
+1 ./ v
+
+% or for a matrix
+1 ./ A</code></pre>
+
+            <pre><code class="scilab">log(A) % element wise logarithm</code></pre>
+
+            <pre><code class="scilab">exp(v) % element wise base E exponantiation</code></pre>
+
+            <pre><code class="scilab">abs([-1; -2; -3]) % element wise absolute value</code></pre>
+
+            <pre><code class="scilab">-v % element wise negation</code></pre>
+
+            <pre><code class="scilab">v + ones(length(v), 1) % increment elements of v by one
+
+% or easier
+v + 1</code></pre>
+
+            <p>Transposing a matrix:</p>
+            <pre><code class="scilab">A'</code></pre>
+
+            <pre><code class="scilab">a = [1 15 2 0.5]
+val = max(a) % val = 15
+
+[val, ind] = max(a) % value and index of the maximum element</code></pre>
+
+            <pre><code class="scilab">a < 3 % element wise lower than</code></pre>
+
+            <p>To find all values that match a specific criteria one could use the <code>find</code> function:</p>
+            <pre><code class="scilab">find(a < 3)</code></pre>
+
+            <p>Sum or product of all elements of a matrix or vector:</p>
+<pre><code class="scilab">sum(a)
+prod(a)</code></pre>
+
+            <p>Round up or down all elements:</p>
+<pre><code class="scilab">floor(a)
+ceil(a)</code></pre>
+
+            <p>Element wise maximum of two random 3 by 3 matrixes:</p>
+<pre><code class="scilab">max(rand(3), rand(3))</code></pre>
+
+            <p>Now for column/row wise maximum of a matrix:</p>
+<pre><code class="scilab">max(A, [], 1) % maximum of first dimension
+max(A, [], 2) % maximum of second dimension</code></pre>
+
+
+            <p>Overall maximum of a matrix:</p>
+<pre><code class="scilab">max(max(A))
+
+% or turn A into a vector
+max(A(:))</code></pre>
+
+            <p>Per column sum:</p>
+<pre><code class="scilab">A = magic(9)
+sum(A. 1) % sum of first dimension
+sum(A, 2) % sum of second dimension</code></pre>
+
+            <p>Diagonal sum:</p>
+<pre><code class="scilab">sum(sum(A .* eye(9))) % first eliminate all non-diagonal elements, then sum
+sum(sum(A .* flipup(eye(9)))) % other diagonal</code></pre>
+
+            <p>Permutation matrix:</p>
+<pre><code class="scilab">A = magic(3)
+pinv(A) % (pseudo-) inverse of A</code></pre>
 
             <hr>
 

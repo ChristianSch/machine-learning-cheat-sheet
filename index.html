@@ -307,7 +307,7 @@
 xor(1,0) % xor</code></pre>
 
             <h5>Prompt</h5>
-            <p>The prompt can be modified by <code class="Scilog">PS^('>> ')</code>.</p>
+            <p>The prompt can be modified by <code class="Scilog">PS1('>> ')</code>.</p>
 
             <h5>Working with variables</h5>
             <h6>Assignments</h6>
@@ -512,6 +512,90 @@ sum(sum(A .* flipup(eye(9)))) % other diagonal</code></pre>
             <p>Permutation matrix:</p>
 <pre><code class="scilab">A = magic(3)
 pinv(A) % (pseudo-) inverse of A</code></pre>
+
+            <h4>Plotting Data</h4>
+            <p>Please note that the produced <code>SVG</code> can be problematic and might not
+            be displayed correctly.</p>
+            <p>To review your code and visualize progress, Octave can easily plot your data:</p>
+<pre><code class="scilab">% example data
+t = [0:0.01:0.98];
+
+y1 = sin(2*pi*4*t);
+plot(t, y1);</code></pre>
+
+            <p>Which gives the following plot:</p>
+            <figure>
+                <img src="img/first_example_plot.svg" alt="first example plot">
+                <figcaption>Plot of vector <code>t</code> and sinus of <code>t</code></figcaption>
+            </figure>
+           
+<pre><code class="scilab">y2 = cos(2*pi*4*t);
+plot(t, y2);</code></pre>
+
+            <p>Which yields this plot:</p>
+            <figure>
+                <img src="img/second_example_plot.svg" alt="second example plot">
+                <figcaption>Plot of vector <code>t</code> and cosine of <code>t</code></figcaption>
+            </figure>
+
+            <p>Now to have an overlay of both plots, the <code>hold on</code> command prevents
+            gnuplot from erasing the first plot when plotting the second.</p>
+
+<pre><code class="scilab">plot(t, y1);
+hold on
+plot(t, y2, 'r');
+xlabel('time')
+ylabel('value')
+legend('sin', 'cos')
+title('my plot')
+</code></pre>
+
+            <p>Which results in the following plot:</p>
+
+            <figure>
+                <img src="img/first_and_second_example_plot.svg" alt="first and second example plot">
+                <figcaption>Plot of vector <code>t</code> and cosine of <code>t</code> with the plot of vector <code>t</code> and its cosine</figcaption>
+            </figure>
+
+            <p>You can save this plot via <code>cd $directory_to_save; print -dpng 'myPlot.png'</code>.</p>
+
+            <p>And finally to exit the plot in a clean manner one would use <code>close</code>.</p>
+
+            <br>
+
+            <p>To simultaniously work with several plots octave can assign them to a figure:</p>
+<pre class="scilab"><code>figure(1); plot(t, y1);
+figure(2); plot(t, y2);</code></pre>
+
+            <p>Or alternatively the plot can be split up into areas holding multiple plots:</p>
+<pre class="scilab"><code>subplot(1, 2, 1); %  divide plot into a 1x2 grid, access first element
+plot(t, y1);
+subplot(1,2,2);
+plot(t, y2);
+axis([0.5 1 -1 1])</code></pre>
+
+            <figure>
+                <img src="img/subplot_first_example.svg" alt="subplot example">
+                <figcaption>Plot of vector <code>t</code> and cosine of <code>t</code> with the plot of vector <code>t</code> and its cosine shown in one plot by dividing it into areas</figcaption>
+            </figure>
+
+            <p>Plots can also be used to visualize matrixes:</p>
+<pre class="scilab"><code>A = magic(5)
+imagesc(A)</code></pre>
+
+            <p>Which produces this plot:</p>
+
+            <figure>
+                <img src="img/imagesc_example.svg" alt="imagesc example">
+                <figcaption>Plot of a magic matrix with size 5</figcaption>
+            </figure>
+
+            <p>An easier plot for this however could be <code>imagesc(A), colorbar, colormap gray;</code>, which yields the following plot:</p>
+
+            <figure>
+                <img src="img/imagesc_second_example.svg" alt="second imagesc example">
+                <figcaption>Plot of a magic matrix with size 5 in gray scale</figcaption>
+            </figure>
 
             <hr>
 

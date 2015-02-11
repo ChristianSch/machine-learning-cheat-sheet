@@ -66,6 +66,23 @@ h2 {
 	padding-top: 0 !important;
 }
 
+figure img {
+	height: auto;
+	margin: 0 10%;
+	max-width: 80%;
+	transition: all .3s ease;
+}
+
+figure img:hover {
+	margin-left: -5%;
+	max-width: 110%;
+}
+
+figure figcaption {
+	color: #555;
+	text-align: center;
+}
+
 .main-foot {
 	border-top: 1px solid #333;
 	margin-top: 5em;
@@ -92,7 +109,6 @@ h2 {
 .main-foot ul li:nth-child(3) {
 	text-align: right;
 }
-
 
 .main-foot .kopimi {
 	width: 3em;

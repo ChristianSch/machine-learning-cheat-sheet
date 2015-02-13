@@ -597,6 +597,81 @@ imagesc(A)</code></pre>
                 <figcaption>Plot of a magic matrix with size 5 in gray scale</figcaption>
             </figure>
 
+            <h4>Control Statements: for, while, if statements</h4>
+            <h5>For Statement</h5>
+<pre class="scilab"><code>v = zeros(10,1)
+for i=1:10,
+    v(i) = 2^i
+end;</code></pre>
+
+            <h4>While Statement</h4>
+<pre class="scilab"><code>i = 1;
+while i <= 5,
+    v(i) = 100;
+    i = i+1;
+end;
+</code></pre>
+
+            <h4>Break</h4>
+<pre class="scilab"><code>i = 1;
+while true,
+    v(i) = 999;
+    i = i+1;
+
+    if i == 6,
+        break;
+    end;
+end;</code></pre>
+
+            <h4>If Statement</h4>
+<pre class="scilab"><code>v(1) = 2;
+if v(1) == 1,
+    disp('The value is one');
+elseif v(1) == 2,
+    disp('The value is two');
+else
+    disp('The value is not one or two');
+end;</code></pre>
+
+            <h4>Function Statements</h4>
+            <p>Octave functions are defined in a file that has to be positioned in your <code>cwd</code>. Take a file with the following function for example:</p>
+<pre class="scilab"><code>function y = squareThisNumber(x)
+
+y = x^2;</code></pre>
+            
+            <p>If octave's current working directory is the same as the directory where an octave file 
+            with this function exists, then you can use this function without any hassle in your octave
+            instance.</p>
+            <p>Alternatively you could add the directory where the file with the function is to the octave search path:</p>
+<pre class="scilab"><code>addpath($absolute_path)</code></pre>
+
+            <br>
+
+            <p>Octave allows us to define a function that returns multiple values:</p>
+<pre class="scilab"><code>function [y1, y2] = squareAndCubeThisNumber(x)
+
+y1 = x^2;
+y2 = x^3;</code></pre>
+
+            <p>Now for a more complex example. The cost function $J(\vec \theta)$ is defined as follows in a seperate file:</p>
+<pre class="scilab"><code>function J = cstFunction(X, y, theta)
+
+% X is the "design matrix" containing our training examples
+% y is the class labels
+
+m = size(X,1);              % number of training examples
+predictions = X*theta;      % predictions of hypothesis on
+                            % all m examples
+sqrErrors = (predictions-y).^2; % squared errors
+
+J = 1/(2*m) * sum(sqrErrors);</code></pre>
+
+            <p>To compute the error for a given dataset:</p>
+<pre class="scilab"><code>X = [1 1; 1 2; 1 3];
+y = [1; 2; 3];
+theta = [0;1];
+j = costFunctionJ(X,y,theta)</code></pre>
+
             <hr>
 
             <h2 id="appendix">Appendix<a class="anchor-link" href="#appendix"></a></h2>

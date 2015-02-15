@@ -125,8 +125,8 @@
             <h5 id="part-der-cf">Partial derivitive of the cost function<a class="anchor-link" href="#part-der-cf"></a></h5>
             $$\begin{aligned}
             \text{repeat} & \text{ until convergence} \; \{\\
-            & \theta_0 := \theta_0 - \alpha \frac1{1}{m}\sum^{m}_{i=0}\left(h_\theta(x^{(i)}) - y^{(i)}\right)\\
-            & \theta_1 := \theta_1 - \alpha \frac1{1}{m}\sum^{m}_{i=0}\left(h_\theta(x^{(i)}) - y^{(i)}\right) \cdot x^{(i)}\\
+            & \theta_0 := \theta_0 - \alpha \frac{1}{m} \sum^{m}_{i=0}\left(h_\theta(x^{(i)}) - y^{(i)}\right)\\
+            & \theta_1 := \theta_1 - \alpha \frac{1}{m} \sum^{m}_{i=0}\left(h_\theta(x^{(i)}) - y^{(i)}\right) \cdot x^{(i)}\\
             \} \phantom{15pt} &
             \end{aligned}$$
 

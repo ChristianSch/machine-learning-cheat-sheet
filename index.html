@@ -672,6 +672,24 @@ y = [1; 2; 3];
 theta = [0;1];
 j = costFunctionJ(X,y,theta)</code></pre>
 
+
+            <h4>Vectorization</h4>
+            <p>The hypothesis $h_\theta (x) = \sum^n_{j=0} \theta_j x_j$ can also be written as $\vec \theta^T \vec x$. With that you'd only need to compute the product of two vectors instead of the sum. Take this unvectorized <em>hypothesis</em> calculation for example:</p>
+
+<pre class="scilab"><code>prediction = 0.0;
+for j = 1:n+1,
+    prediction = prediction + theta(j) * x(j)
+end;</code></pre>
+
+            <p>For contrast look at the vectorized implementation:</p>
+<pre class="scilab"><code>prediction = theta' * x;</code></pre>
+
+            <p>Now for a more sophisticated example the gradient descent algorithm (<code>for all j</code>):</p>
+            $$\theta_j := \theta_j - \alpha \frac1{1}{m}\sum^{m}_{i=0}\left(h_\theta(x^{(i)}) - y^{(i)}\right)x^{(i)}_j\\$$
+
+            <p>The vectorized implementation consists of $\theta := \theta - \alpha \delta$ where delta is a vector of the deltas:</p>
+            $$\delta = \frac{1}{m} \sum^m_{i=1} \left( h_\theta(x^{(i)} - y^{(i)}\right)x^{(i)}$$
+
             <hr>
 
             <h2 id="appendix">Appendix<a class="anchor-link" href="#appendix"></a></h2>

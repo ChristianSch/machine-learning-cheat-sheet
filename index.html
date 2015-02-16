@@ -690,6 +690,37 @@ end;</code></pre>
             <p>The vectorized implementation consists of $\theta := \theta - \alpha \delta$ where delta is a vector of the deltas:</p>
             $$\delta = \frac{1}{m} \sum^m_{i=1} \left( h_\theta(x^{(i)} - y^{(i)}\right)x^{(i)}$$
 
+
+            <h2 class="week-indicator" id="week-3">Week 3</h2>
+            <h3>Linear Regression</h3>
+            <p>With $y \in \{0, 1\}$ the linear regression model is</p>
+
+            $$0 \leq h_\theta(x) \leq 1$$
+
+            <h4>Hypothesis for Logistic Regression Models</h4>
+
+            <p>The hypothesis for this model is this:</p>
+
+            $$h_\theta(x) = g(\theta^Tx)$$
+
+            <p>Where $g$ is called <em>sigmoid function</em> or <em>logistic function</em></p>
+
+            $$g(z) = \frac{1}{1+e^{-z}}$$
+
+            <p>Which gives us the following representation for the hypothesis:</p>
+
+            $$h_\theta(x) = \frac{1}{1+e^{-\theta^Tx}}$$            
+
+            <h4>Interpretation of the Hypothesis Output</h4>
+            <p>$h_\theta(x)$ is the estimated probability that $y=1$ on input $x$:</p>
+
+            $$h_\theta(x) = P(y = 1 | x ; \theta)$$
+
+            <p>Which reads like <em>probability that $y=1$ given x, parameterized by $\theta$</em></p>
+
+            $$P(y=0|x;\theta) + P(y=1|x;\theta) = 1\\
+            P(y=0|x;\theta) = 1 - P(y=1|x;\theta)$$
+
             <hr>
 
             <h2 id="appendix">Appendix<a class="anchor-link" href="#appendix"></a></h2>

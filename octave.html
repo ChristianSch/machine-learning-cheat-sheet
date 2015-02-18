@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="css/main.css" type="text/css" media="all">
+
+        <!-- typeplate -->
+        <link rel="stylesheet" href="css/typeplate.css" type="text/css" media="all">
+
+        <!-- MathJax -->
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+                extensions: ["tex2jax.js"],
+                jax: ["input/TeX", "output/HTML-CSS"],
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                    processEscapes: true
+                },
+                "HTML-CSS": { availableFonts: ["TeX"] }
+            });
+        </script>
+        <script type="text/javascript" src="js/MathJax/MathJax.js"></script>
+
+        <!-- Highlight.js -->
+        <link rel="stylesheet" href="js/Highlight.js/styles/default.css">
+        <script src="js/Highlight.js/highlight.pack.js" type="text/javascript"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </head>
+
+    <body id="top">
+        <div id="main-wrap">
+            <h1>Machine Learning @ Coursera</h1>
+            <h2 class="sub-h2">Octave Tutorial</h2>
+
+            <p>This cheatsheet wants to provide an overview of the concepts and the used formulas and definitions of the <em>»Machine Learning«</em> <a href="https://class.coursera.org/ml-008" title="Coursera Online Course: Machine Learning">online course at coursera</a>.</p>
+
+            <p>This very document is a script of the octave tutorial that was part of the second week.
+            The regular <a href="index.html" title="cheat sheet">cheat sheet</a> is available 
+            <a href="index.html" title="cheat sheet">here</a>.</p>
+
+            <div id="last-change">
+                <p>Last changed: <time datetime="2015-02-17">February 17th, 2015</time></p>
+            </div>
+
+			<h3 id="octave-tut">Octave Tutorial<a class="anchor-link" href="#octave-tut"></a></h3>
+            <h4>Basic Operations</h4>
+            <h5>Elementary Operations</h5>
+
+            <pre><code class="scilab">5 + 6 % addition
+3 - 2 % subtraction
+5 * 7 % multiplication
+1 / 2 % division
+2^6 % power
+            </code></pre>
+
+            <h5>Logical Operations</h5>
+
+            <pre><code class="scilab">1 == 2 % equality
+1 ~= 2 % nonequality
+1 && 0 % logical and
+1 || 0 % or
+xor(1,0) % xor</code></pre>
+
+            <h5>Prompt</h5>
+            <p>The prompt can be modified by <code class="Scilog">PS1('>> ')</code>.</p>
+
+            <h5>Working with variables</h5>
+            <h6>Assignments</h6>
+            <pre><code class="scilab">a = 3
+a = 3; % comma supresses the output
+b = 'hi';
+c = (3 >= 1);</code></pre>
+
+            <h6>Printing</h6>
+            <pre><code class="scilab">a = pi;
+a % => 3.1416
+
+disp(a) % disp is used for more complex values
+
+% formatted output
+disp(sprintf('2 decimals: %0.2f', a))
+% => 2 decimals: 3.14
+disp(sprintf('6 decimals: %0.6f', a))
+% => 2 decimals: 3.141593
+
+format long
+a % => 3.14159265358979
+
+format short
+a % => 3.1416</code></pre>
+
+            <h5>Matrixes and Vectors</h5>
+            <pre><code class="scilab">A = [1 2; 3 4; 5 6]
+
+v = [1 2 3] % row vector
+v = [1; 2; 3] % column vector</code></pre>
+
+            <h6>Ranges</h6>
+<pre><code class="scilab">% ranges
+% elements range from 1.0, 1.1 ... to 2.0
+v = 1:0.1:2
+
+% (elements range from one to six)
+v = 1:6</code></pre>
+
+            <h6>Zero and One filled Matrixes</h6>
+<pre><code class="scilab">% matrix filled with ones
+one(2,3)
+C = 2 * ones(2,3)
+
+% would be the same as:
+C  = [2 2 2; 2 2 2]
+
+W = ones(1,3) % row vector of three ones
+W = zeros(1,3) % same with zeros</code></pre>
+            
+            <h6>Matrixes with Random Values</h6>
+<pre><code class="scilab">rand(3,3) % 3 by 3 matrix with random values from [0, 1]
+
+W = randn(1,3) % random values from a gaussian distribution
+
+w = -6 + sqrt(10)*(randn(1,10000));
+% vector of 10k elements
+
+% you can view the distribution of the 
+% values with a histogram
+hist(w) % histogram of values of w
+
+hist(w,50) % same but with 50 buckets</code></pre>
+
+            <h6>Identity Matrixes</h6>
+<pre><code class="scilab">eye(4) % 4 by 4 identity matrix</code></pre>
+
+            <h5>Help</h5>
+            <p>By typing <code>help eye</code> (or another function) help for this function is shown.</p>
+
+            <h4>Moving Data Around</h4>
+
+            <h5>Directories and Files</h5>
+            <p><code class="scilab">pwd</code> prints the current working directory, and <code class="scilab">ls</code>
+            lists all files and directories in the current working directory.</p>
+
+            <p>With <code class="scilab">load featuresX.dat</code> loads the file as <code class="scilab">featuresX</code>.
+            <code class="scilab">who</code> lists all the variables in the current working space.
+            For a more detailed view of all the variables you can use <code class="scilab">whos</code>.
+            To clear a specific value you can use <code class="scilab">clear featuresX</code>.</p>
+
+            <p>By using <code class="scilab">save hello.mat v;</code> the content of the vector <code class="scilab">v</code>
+            gets saved to <code class="scilab">hello.mat</code> in a compressed binary format. To save it in a
+            human readable format use <code class="scilab">save hello.txt v -ascii</code>.</p>
+
+            <h5>Matrix Sizing</h5>
+<pre><code class="scilab">A = [1 2; 3 4; 5 6]
+size(A) % matrix of [2 3]
+size(A,1) % => 3
+size(A,2) % => 2
+
+v = [1 2 3 4]
+length(v) % => 4
+length([1;2;3;4;5]) % => 5</code></pre>
+
+            <h5>Access Elements in a Matrix or Vector</h5>
+<pre><code class="scilab">A = [1 2; 3 4; 5 6]
+A(1,2) % => 2
+
+A(1,:) % everything from the first row
+
+A(:,2) % everything from the second column
+
+A([1 3], :) % everything from the first and third row
+
+A(:,2) = [10; 11; 12] % replaces the second column with the values 10,11,12</code></pre>
+
+            <h5>Appending and Concatenating Matrixes and Vectors</h5>
+<pre><code class="scilab">A = [A, [100; 200; 300]]; % append another column on the right</code></pre>
+
+<pre><code class="scilab">A = [1 2; 3 4; 5 6];
+B = [10 11; 12 13; 14 15];
+
+C = [A B]; % combine A and B to a new matrix (with 4 columns and 3 rows)
+C = [A,B]; % the same
+
+C = [A;B]; % combine A and B (with 2 colums and 6 rows)</code></pre>
+
+            <h5>Special Syntax: Put all Values of a Matrix in A Single Vector</h5>
+<pre><code class="scilab">A(:)</code></pre>
+
+            <h4>Computation on Data</h4>
+            <p>With given matrixes</p>
+<pre><code class="scilab">A = [1 2; 3 4; 5 6]
+B = 11 12; 13 14; 15 16]
+C = [1 1; 2 2]</code></pre>
+
+            <p>Matrixmultiplication works as follows:</p>
+            <pre><code class="scilab">A * C</code></pre>
+
+            <p>Now to multiply element wise:</p>
+            <pre><code class="scilab">A .* B</code></pre>
+
+            <p>The dot denotes element wise operations, for example element wise squaring:</p>
+            <pre><code class="scilab">A .^ 2</code></pre>
+
+            <p>With a vector $\vec v$ the element wise reciprocal (or inverse):</p>
+            <pre><code class="scilab">v = [1; 2; 3]
+1 ./ v
+
+% or for a matrix
+1 ./ A</code></pre>
+
+            <pre><code class="scilab">log(A) % element wise logarithm</code></pre>
+
+            <pre><code class="scilab">exp(v) % element wise base E exponantiation</code></pre>
+
+            <pre><code class="scilab">abs([-1; -2; -3]) % element wise absolute value</code></pre>
+
+            <pre><code class="scilab">-v % element wise negation</code></pre>
+
+            <pre><code class="scilab">v + ones(length(v), 1) % increment elements of v by one
+
+% or easier
+v + 1</code></pre>
+
+            <p>Transposing a matrix:</p>
+            <pre><code class="scilab">A'</code></pre>
+
+            <pre><code class="scilab">a = [1 15 2 0.5]
+val = max(a) % val = 15
+
+[val, ind] = max(a) % value and index of the maximum element</code></pre>
+
+            <pre><code class="scilab">a < 3 % element wise lower than</code></pre>
+
+            <p>To find all values that match a specific criteria one could use the <code>find</code> function:</p>
+            <pre><code class="scilab">find(a < 3)</code></pre>
+
+            <p>Sum or product of all elements of a matrix or vector:</p>
+<pre><code class="scilab">sum(a)
+prod(a)</code></pre>
+
+            <p>Round up or down all elements:</p>
+<pre><code class="scilab">floor(a)
+ceil(a)</code></pre>
+
+            <p>Element wise maximum of two random 3 by 3 matrixes:</p>
+<pre><code class="scilab">max(rand(3), rand(3))</code></pre>
+
+            <p>Now for column/row wise maximum of a matrix:</p>
+<pre><code class="scilab">max(A, [], 1) % maximum of first dimension
+max(A, [], 2) % maximum of second dimension</code></pre>
+
+
+            <p>Overall maximum of a matrix:</p>
+<pre><code class="scilab">max(max(A))
+
+% or turn A into a vector
+max(A(:))</code></pre>
+
+            <p>Per column sum:</p>
+<pre><code class="scilab">A = magic(9)
+sum(A. 1) % sum of first dimension
+sum(A, 2) % sum of second dimension</code></pre>
+
+            <p>Diagonal sum:</p>
+<pre><code class="scilab">sum(sum(A .* eye(9))) % first eliminate all non-diagonal elements, then sum
+sum(sum(A .* flipup(eye(9)))) % other diagonal</code></pre>
+
+            <p>Permutation matrix:</p>
+<pre><code class="scilab">A = magic(3)
+pinv(A) % (pseudo-) inverse of A</code></pre>
+
+            <h4>Plotting Data</h4>
+            <p>Please note that the produced <code>SVG</code> can be problematic and might not
+            be displayed correctly.</p>
+            <p>To review your code and visualize progress, Octave can easily plot your data:</p>
+<pre><code class="scilab">% example data
+t = [0:0.01:0.98];
+
+y1 = sin(2*pi*4*t);
+plot(t, y1);</code></pre>
+
+            <p>Which gives the following plot:</p>
+            <figure>
+                <img src="img/first_example_plot.svg" alt="first example plot">
+                <figcaption>Plot of vector <code>t</code> and sinus of <code>t</code></figcaption>
+            </figure>
+           
+<pre><code class="scilab">y2 = cos(2*pi*4*t);
+plot(t, y2);</code></pre>
+
+            <p>Which yields this plot:</p>
+            <figure>
+                <img src="img/second_example_plot.svg" alt="second example plot">
+                <figcaption>Plot of vector <code>t</code> and cosine of <code>t</code></figcaption>
+            </figure>
+
+            <p>Now to have an overlay of both plots, the <code>hold on</code> command prevents
+            gnuplot from erasing the first plot when plotting the second.</p>
+
+<pre><code class="scilab">plot(t, y1);
+hold on
+plot(t, y2, 'r');
+xlabel('time')
+ylabel('value')
+legend('sin', 'cos')
+title('my plot')
+</code></pre>
+
+            <p>Which results in the following plot:</p>
+
+            <figure>
+                <img src="img/first_and_second_example_plot.svg" alt="first and second example plot">
+                <figcaption>Plot of vector <code>t</code> and cosine of <code>t</code> with the plot of vector <code>t</code> and its cosine</figcaption>
+            </figure>
+
+            <p>You can save this plot via <code>cd $directory_to_save; print -dpng 'myPlot.png'</code>.</p>
+
+            <p>And finally to exit the plot in a clean manner one would use <code>close</code>.</p>
+
+            <br>
+
+            <p>To simultaniously work with several plots octave can assign them to a figure:</p>
+<pre class="scilab"><code>figure(1); plot(t, y1);
+figure(2); plot(t, y2);</code></pre>
+
+            <p>Or alternatively the plot can be split up into areas holding multiple plots:</p>
+<pre class="scilab"><code>subplot(1, 2, 1); %  divide plot into a 1x2 grid, access first element
+plot(t, y1);
+subplot(1,2,2);
+plot(t, y2);
+axis([0.5 1 -1 1])</code></pre>
+
+            <figure>
+                <img src="img/subplot_first_example.svg" alt="subplot example">
+                <figcaption>Plot of vector <code>t</code> and cosine of <code>t</code> with the plot of vector <code>t</code> and its cosine shown in one plot by dividing it into areas</figcaption>
+            </figure>
+
+            <p>Plots can also be used to visualize matrixes:</p>
+<pre class="scilab"><code>A = magic(5)
+imagesc(A)</code></pre>
+
+            <p>Which produces this plot:</p>
+
+            <figure>
+                <img src="img/imagesc_example.svg" alt="imagesc example">
+                <figcaption>Plot of a magic matrix with size 5</figcaption>
+            </figure>
+
+            <p>An easier plot for this however could be <code>imagesc(A), colorbar, colormap gray;</code>, which yields the following plot:</p>
+
+            <figure>
+                <img src="img/imagesc_second_example.svg" alt="second imagesc example">
+                <figcaption>Plot of a magic matrix with size 5 in gray scale</figcaption>
+            </figure>
+
+            <h4>Control Statements: for, while, if statements</h4>
+            <h5>For Statement</h5>
+<pre class="scilab"><code>v = zeros(10,1)
+for i=1:10,
+    v(i) = 2^i
+end;</code></pre>
+
+            <h4>While Statement</h4>
+<pre class="scilab"><code>i = 1;
+while i <= 5,
+    v(i) = 100;
+    i = i+1;
+end;
+</code></pre>
+
+            <h4>Break</h4>
+<pre class="scilab"><code>i = 1;
+while true,
+    v(i) = 999;
+    i = i+1;
+
+    if i == 6,
+        break;
+    end;
+end;</code></pre>
+
+            <h4>If Statement</h4>
+<pre class="scilab"><code>v(1) = 2;
+if v(1) == 1,
+    disp('The value is one');
+elseif v(1) == 2,
+    disp('The value is two');
+else
+    disp('The value is not one or two');
+end;</code></pre>
+
+            <h4>Function Statements</h4>
+            <p>Octave functions are defined in a file that has to be positioned in your <code>cwd</code>. Take a file with the following function for example:</p>
+<pre class="scilab"><code>function y = squareThisNumber(x)
+
+y = x^2;</code></pre>
+            
+            <p>If octave's current working directory is the same as the directory where an octave file 
+            with this function exists, then you can use this function without any hassle in your octave
+            instance.</p>
+            <p>Alternatively you could add the directory where the file with the function is to the octave search path:</p>
+<pre class="scilab"><code>addpath($absolute_path)</code></pre>
+
+            <br>
+
+            <p>Octave allows us to define a function that returns multiple values:</p>
+<pre class="scilab"><code>function [y1, y2] = squareAndCubeThisNumber(x)
+
+y1 = x^2;
+y2 = x^3;</code></pre>
+
+            <p>Now for a more complex example. The cost function $J(\vec \theta)$ is defined as follows in a seperate file:</p>
+<pre class="scilab"><code>function J = cstFunction(X, y, theta)
+
+% X is the "design matrix" containing our training examples
+% y is the class labels
+
+m = size(X,1);              % number of training examples
+predictions = X*theta;      % predictions of hypothesis on
+                            % all m examples
+sqrErrors = (predictions-y).^2; % squared errors
+
+J = 1/(2*m) * sum(sqrErrors);</code></pre>
+
+            <p>To compute the error for a given dataset:</p>
+<pre class="scilab"><code>X = [1 1; 1 2; 1 3];
+y = [1; 2; 3];
+theta = [0;1];
+j = costFunctionJ(X,y,theta)</code></pre>
+
+
+            <h4>Vectorization</h4>
+            <p>The hypothesis $h_\theta (x) = \sum^n_{j=0} \theta_j x_j$ can also be written as $\vec \theta^T \vec x$. With that you'd only need to compute the product of two vectors instead of the sum. Take this unvectorized <em>hypothesis</em> calculation for example:</p>
+
+<pre class="scilab"><code>prediction = 0.0;
+for j = 1:n+1,
+    prediction = prediction + theta(j) * x(j)
+end;</code></pre>
+
+            <p>For contrast look at the vectorized implementation:</p>
+<pre class="scilab"><code>prediction = theta' * x;</code></pre>
+
+            <p>Now for a more sophisticated example the gradient descent algorithm (<code>for all j</code>):</p>
+            $$\theta_j := \theta_j - \alpha \frac1{1}{m}\sum^{m}_{i=0}\left(h_\theta(x^{(i)}) - y^{(i)}\right)x^{(i)}_j\\$$
+
+            <p>The vectorized implementation consists of $\theta := \theta - \alpha \delta$ where delta is a vector of the deltas:</p>
+            $$\delta = \frac{1}{m} \sum^m_{i=1} \left( h_\theta(x^{(i)} - y^{(i)}\right)x^{(i)}$$
+
+                        <footer class="main-foot">
+                <ul>
+                    <li><a href="#top">Back to top</a></li>
+                    <li><a href="http://www.kopimi.com/kopimi" title="kopimi"><img src="img/kopimi.svg" class="kopimi"></a></li>
+                    <li>By Christian Schulze<br><a href="http://andinfinity.de">andinfinity.de</a></li>
+                </ul>
+            </footer>
+        </div>
+    </body>
+</html>

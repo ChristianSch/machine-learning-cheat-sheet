@@ -358,6 +358,88 @@
             -log(1 - h_\theta(\vec x)) \;\;\; \text{if} \;\; y = 0\end{array}\right.$$
 
             <p>If the $\text{cost} \, = 0 \; \text{if} \; y = 1, h_\theta(x) = 1$ but as $h_\theta(x) \rightarrow 0$ $Cost \rightarrow \infty$. This captures the intuition that if $h_\theta(x) = 0$ (predict $P(y=1|x;\theta)$), but $y=1$ we'll penalize the learning alrogithm by a very large cost.</p>
+
+            <h4 id="simp-cost-grad-desc">Simplified Cost Function and Gradient Descent<a class="anchor-link" href="#simp-cost-grad-desc"></a></h4>
+            <p>The cost function can be simplified to a one liner:</p>
+
+            $$cost(h_\theta(x),x) = -y \; log(h_\theta(x)) - (1-y) log(1-h_\theta(x))$$
+
+            <p>This works because if $y=1$, the first term will be multiplicated by $1$ and the second term will be multiplicated with $(1-y) = (1-1) = 0$. If $y=0$ the first term is multiplicated with 0 and the second term is multiplicated with $(1-0) = 1$.</p>
+
+            <p>This gives us the complete cost function $J(\vec\theta)$:</p>
+
+            $$\begin{align}
+            J(\vec\theta) & = \frac{1}{m} \sum^m_{i=1} cost(h_\theta(x^{(i)}),y^{(i)})\\
+                          & = - \frac{1}{m} \left[\sum^m_{i=1} y^{(i)} log(h_\theta(x^{(i)})) + (1-y^{(i)} ) log(1 - h_\theta( x^{(i)}))\right]
+            \end{align}$$
+
+            <p>To fit parameters $\vec\theta$ $\text{min}_\theta J(\vec\theta)$ is calculated. To make a new prediction given new x the output of $h_\theta$ has to be calculated ($P(y=1|x;\theta)$).</p>
+
+            <h5 id="log-reg-grad-desc">Gradient Descent<a class="anchor-link" href="#log-reg-grad-desc"></a></h5>
+            <p>$\text{min}_\theta J(\theta)$:</p>
+
+            $$\begin{aligned}
+            \text{repeat} &\{\\
+            & \theta_j := \theta_j - \alpha \sum^m_{i=1} (h_\theta(x^{(i)}) - y^{(i)})x_j^{(i)}\\
+            \} \phantom{15pt} &
+            \end{aligned}$$
+
+            <h4 id="log-reg-ad-opt">Advanced Optimization<a class="anchor-link" href="#log-reg-ad-opt"></a></h4>
+            <p>In general we need to compute two things for our optimization:</p>
+
+            <ul>
+                <li>$J(\vec \theta)$</li>
+                <li>$\frac{\delta}{\delta\theta_j}J(\vec \theta)$</li>
+            </ul>
+
+            <p>Besides gradient descent, there are several other algorithms that could be used:</p>
+
+            <ul>
+                <li>Conjugate Gradient</li>
+                <li>BFGS</li>
+                <li>L-BFGS</li>
+            </ul>
+
+            <div class="two-col">
+                <h5>The advantages:</h5>
+                <ul>
+                    <li>No need to manually pick $\alpha$</li>
+                    <li>Often faster than gradient descent</li>
+                </ul>
+
+                <h5>The disadvantages:</h5>
+                <ul>
+                    <li>More complex</li>
+                </ul>
+            </div>
+
+            <h5>Example for $\text{min}_\theta$</h5>
+            $$\vec\theta=\left[\begin{array}{c} \theta_1 \\ \theta_2 \end{array}\right]\\
+            J(\vec\theta) = (\theta_1 -5)^2 + (\theta_2 -5)^2\\
+            \frac{\delta}{\delta\theta_1}=2(\theta_1 -5)\\
+            \frac{\delta}{\delta\theta_2} = 2(\theta_2 - 5)$$
+
+<pre><code class="scilab">function[jVal, gradient] = costFunction(theta)
+
+% code to compute J(theta)
+jVal = (theta(1) - 5)^2 + (theta(2)-5)^2;
+
+gradient = zeros(2,1);
+
+% code to compute delta/delta theta_j J(theta)
+gradient(1) = 2*(theta(1)-5);
+gradient(2) = 2*theta(2)-5);
+
+options = optimset('GradObj', 'on', 'MaxIter', '100');
+initialTheta = zeros(2,1);
+[optTheta, functionval, exitFlag] = fminunc(@costFunction, initialTheta, options);</code></pre>
+            
+
+            <h4 id="one-vs-all-class">Multiclass Classification: One-vs-all<a class="anchor-link" href="#one-vs-all-class"></a></h4>
+            <p>Classification with more than two $y$'s works like this:</p>
+            $$h_\theta^{(i)}(x) = P(y=i|x;\theta) \;\;\; (i = 1,2,3,...)$$
+            <p>Each $i$ has it's own hypothesis $h_\theta^{(i)}(x)$ and predicts the probability that $y=i$ for each class $i$. On a new input $x$, to make a prediction, pick the class $i$ that maximizes $\text{max}_i h_\theta^{(i)}(x)$</p>
+
             <hr>
 
             <h2 id="appendix">Appendix<a class="anchor-link" href="#appendix"></a></h2>

@@ -442,6 +442,57 @@ initialTheta = zeros(2,1);
             $$h_\theta^{(i)}(x) = P(y=i|x;\theta) \;\;\; (i = 1,2,3,...)$$
             <p>Each $i$ has it's own hypothesis $h_\theta^{(i)}(x)$ and predicts the probability that $y=i$ for each class $i$. On a new input $x$, to make a prediction, pick the class $i$ that maximizes $\text{max}_i h_\theta^{(i)}(x)$</p>
 
+
+            <h3 id="regularization">Regularization<a class="anchor-link" href="#regularization"></a></h3>
+            <p>To prevent <em>overfitting</em> or <em>underfitting</em> of our hypothesis, we can regularize regressions.</p>
+
+            <h4 id="reg-lin-reg">Regularized Linear Regression<a class="anchor-link" href="#reg-lin-reg"></a></h4>
+            $$J(\vec\theta) = \frac{1}{2m} \left[\sum^m_{i=1}(h_\theta(x^{(i)}) -y^{(i)})^2 + \lambda \sum^m_{j=1}\theta_j \right]$$
+
+            <p>Where the term prepended by $y$ is called the <em>regularization term</em>. The goal is again to $\text{min}_\theta \; J(\vec\theta)$. The regularized gradient descent looks like this:</p>
+
+            $$\begin{aligned}
+            \text{repeat} & \{\\
+            & \theta_0 := \theta_0 - \alpha \frac{1}{m} \sum^m_{i=0} (h_\theta(x^{(i)}) - y^{(i)})x_0^{(i)}\\
+            & \theta_j := \theta_j - \alpha \left[ \frac{1}{m} \sum^m_{i=0} (h_\theta(x^{(i)}) - y^{(i)})x^{(i)}_j + \frac{\lambda}{m} \theta_j \right] \;\; \text{(for j=1...n)}\\
+            \} \phantom{15pt} &
+            \end{aligned}$$
+
+            <p>Note that $\theta_0$ does not get penalized for over- or underfitting and therefore not regularized. The second term simply is $\frac{\delta}{\delta \theta_j} J(\vec\theta)$. For $j > 0$ the term can also be written as:</p>
+
+            $$\theta_j = \theta_j(1-\alpha \frac{\lambda}{m}) - \alpha \frac{1}{m} \sum^m_{i=0}(h_\theta(x^{(i)}) - y^{(i)})x^{(i)}_j$$
+
+            <p>You can see that written this way, the term is pretty much the same as the original term.</p>
+
+            <h4 id="reg-norm-eq">Regularized Normal Equation<a class="anchor-link" href="#reg-norm-eq"></a></h4>
+            $$X = \left[\begin{array}{c} (x^{(1)})^T \\ \vdots \\ (x^{(m)})^T \end{array}\right] \in \mathbb{R}^{mx(n+1)} \;\; \text{with} \;\; y = \left[\begin{array}{c} y^{(1)} \\ \vdots \\ y^{(m)} \end{array}\right] \in \mathbb{R}^{m}$$
+
+            <p>The regularized normal equation now looks like this:</p>
+
+            $$\vec\theta = (X^T X + \lambda \left[\begin{array}{ccccc}
+             0 & 0 & 0 & \cdots & 0 \\
+             0 & 1 &  0 & \cdots & 0 \\
+             0 & 0 & 1 & \cdots & 0 \\
+             \vdots & \vdots & \vdots & \ddots & \vdots \\
+             0 & 0 & 0 & \cdots & 1 \\
+             \end{array}\right])^{-1}X^T y$$
+
+            <p>Where the matrix consisting of zeros and ones is sized $(n+1)x(n+1)$.</p>
+
+            <h4 id="reg-non-inv">Non-Invertibility<a class="anchor-link" href="#reg-non-inv"></a></h4>
+            <p>Suppose $m \leq n$ where $m$ is the number of examples and $n$ is the number of features.</p>
+
+            $$\theta = (X^TX)^{-1}X^T y$$
+
+            <p>When $m \leq n$ $X^TX$ is not invertible.</p>
+            <p>If $\lambda > 0$ the matrix is invertible because of the regularization.</p>
+
+            <h4 id="reg-log-reg">Regularized Logistic Regression<a class="anchor-link" href="#reg-log-reg"></a></h4>
+
+            $$J(\vec \theta) = - \left[ \frac{1}{m} \sum^{m}_{i=1} log(h_\theta(x^{(i)})) + (1-y^{(i)})log(1- h_\theta(x^{(i)})) \right] + \frac{\lambda}{2m} \sum^m_{i=1} \theta^2_j$$
+
+            <p>To prevent overfitting, $\theta_j$ will be penalized with $y>0$ for being too large.</p>
+
             <hr>
 
             <h2 id="appendix">Appendix<a class="anchor-link" href="#appendix"></a></h2>

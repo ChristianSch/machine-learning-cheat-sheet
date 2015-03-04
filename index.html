@@ -493,6 +493,61 @@ initialTheta = zeros(2,1);
 
             <p>To prevent overfitting, $\theta_j$ will be penalized with $y>0$ for being too large.</p>
 
+            <h2 class="week-indicator" id="week-4">Week 4<a class="anchor-link" href="#week-4"></a></h2>
+            <h3 id="ann-rep">Neural Networks: Representation<a class="anchor-link" href="#ann-rep"></a></h3>
+            <h4 id="ann-hypo">Non-Linear Hypothesis<a class="anchor-link" href="#ann-hypo"></a></h4>
+            <p>For more complex hypothesis that are non-linear to fit the hypothesis it might be required to add a number of quadratic or other features. With a higher number of features, this results in a really large hypothesis. This is where neural networks come in.</p>
+
+            <h4 id="ann-mod-rep-1">Model Representation I<a class="anchor-link" href="#ann-mod-rep-1"></a></h4>
+            <figure>
+                <figcaption>Neurons in the brain</figcaption>
+                <img src="img/neurons.png" alt="neurons">
+            </figure>
+
+            <ul>
+                <li><em>Dendrite:</em> input wires</li>
+                <li><em>Axon:</em> output wire</li>
+            </ul>
+
+            <figure>
+                <figcaption>Neuron Model: Logistic Unit</figcaption>
+                <img src="img/neuron_log_model.png" alt="neuron model: logistic unit">
+            </figure>
+
+            <ul>
+                <li>Hypothesis: $h_\Theta(x) = \frac{1}{1+e^{-\Theta^Tx}}$ (also called <em>sigmoid activation function</em>)</li>
+                <li>$x_0$: bias unit with $x_0 = 1$</li>
+            </ul>
+
+            <p>The so called <em>weights</em> of the neurons are going to be the parameters of this model.</p>
+
+            <figure>
+                <figcaption>A Neural Network</figcaption>
+                <img src="img/neural_network.png" alt="neural network">
+            </figure>
+
+            <p>Again, $x_0$ and $a_0^(2)$ are the bias units. The first layer ($\{x_0, x_1, x_2, x_3\}$) is called the <em>input layer</em>. The third layer ($\{a^{(2)}_0, a^{(2)}_1, a^{(2)}_2, a^{(2)}_3\}$) is called the output layer. All layers between the input and the output layers are called <em>hidden layers</em>. So in this example, layer 2 is a hidden layer.</p>
+
+            <ul>
+                <li>$a^{(j)}_i$: activation of unit $i$ in layer $j$</li>
+                <li>$\Theta^{(j)}$: matrix of weights controlling function mapping from layer $j$ to layer $j+1$</li>
+            </ul>
+
+            <p>In general, if a network has $s_j$ units in layer $j$, $s_{j+1}$ units in layer $j+1$, then $\Theta^{(j)}$ will be of dimension $s_{j+1} \times (s_j+1)$</p>
+
+            <h4 id="ann-mod-rep-2">Model Representation II<a class="anchor-link" href="#ann-mod-rep-2"></a></h4>
+            <h5 id="forward-prop-vec">Forward Propagation: Vectorized Implementation<a class="anchor-link" href="#forward-prop-vec"></a></h5>
+            <p>From the first layer to the output layer the values are calculated based on the values of the previous layer.</p>
+
+            $$x=\left[\begin{array}{c} x_0 \\ \vdots \\ x_3 \end{array}\right], \;\; z^{(2)}=\left[\begin{array}{c} z^{(2)}_1 \\ z^{(2)}_2 \\ z^{(2)}_3 \end{array}\right]$$
+
+            <p>With $z^{(2)} = \Theta^{(1)}a^{(1)}$ and $a^{(2)} = g(z^{(3)})$. Basically this is just a logistic regression for each layer $a_i^{(j)}$. For the bias unit we add $a^{(2)}_0 = 1$ ($\Righarrow a^{(2)} \in \mathbb{R}^{n+1}$). $z^{(3)} = \Theta^{(2)}a^{(2)}$ and $h_\Theta(x) = a^{(3)} = g(z^{(3)})$.</p>
+
+            <figure>
+                <figcaption>Other Network Architectures</figcaption>
+                <img src="img/net_arch.png" alt="">
+            </figure>
+
             <hr>
 
             <h2 id="appendix">Appendix<a class="anchor-link" href="#appendix"></a></h2>

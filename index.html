@@ -548,6 +548,184 @@ initialTheta = zeros(2,1);
                 <img src="img/net_arch.png" alt="">
             </figure>
 
+            <h4 id="ex-int-1">Examples and Intuitition I<a class="anchor-link" href="#ex-int-1"></a></h4>
+            <h5 id="simp-ex-and">Simple Example: AND<a class="anchor-link" href="#simp-ex-and"></a></h5>
+            <ul>
+                <li>$x_1, x_2 \in \{0,1\}$</li>
+                <li>$y = x_1 \text{AND} x_2$</li>
+            </ul>
+
+            <figure>
+                <figcaption>Simple Example: AND</figcaption>
+                <img src="img/ann_and.png" alt="">
+                
+            </figure>
+
+            <p>We add the following weights to achieve the <em>AND</em> operation:
+                <ul>
+                    <li>$\Theta_{10}^{(1)} = -30$</li>
+                    <li>$\Theta_{11}^{(1)} = 20$</li>
+                    <li>$\Theta_{12}^{(1)} = 20$</li>
+                </ul>
+            </p>
+
+            <br>
+
+            <p>$h_\Theta(x) = g(-30+20x_1+20x_2)$</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>$x_1$</th>
+                        <th>$x_2$</th>
+                        <th>$h_\Theta(x)$</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>$0$</td>
+                        <td>$0$</td>
+                        <td>$g(-30) \approx 0$</td>
+                    </tr>
+                    <tr>
+                        <td>$0$</td>
+                        <td>$1$</td>
+                        <td>$g(-10) \approx 0$</td>
+                    </tr>
+                    <tr>
+                        <td>$1$</td>
+                        <td>$0$</td>
+                        <td>$g(-10) \approx 0$</td>
+                    </tr>
+                    <tr>
+                        <td>$1$</td>
+                        <td>$1$</td>
+                        <td>$g(10) \approx 1$</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h5 id="simp-ex-or">Simple Example: OR<a class="anchor-link" href="#simp-ex-or"></a></h5>
+            <figure>
+                <figcaption>Simple Example: OR</figcaption>
+                <img src="img/ann_or.png" alt="">
+            </figure>
+
+            <p>$h_\Theta(x) = g(-10 + 20x_1 + 20x_2)$</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>$x_1$</th>
+                        <th>$x_2$</th>
+                        <th>$h_\Theta(x)$</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>$0$</td>
+                        <td>$0$</td>
+                        <td>$g(-10) \approx 0$</td>
+                    </tr>
+                    <tr>
+                        <td>$0$</td>
+                        <td>$1$</td>
+                        <td>$g(10) \approx 1$</td>
+                    </tr>
+                    <tr>
+                        <td>$1$</td>
+                        <td>$0$</td>
+                        <td>$g(10) \approx 1$</td>
+                    </tr>
+                    <tr>
+                        <td>$1$</td>
+                        <td>$1$</td>
+                        <td>$g(30) \approx 1$</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4 id="ex-int-2">Examples and Intuitition II<a class="anchor-link" href="#ex-int-2"></a></h4>
+            <h5 id="simp-ex-not">Negation<a class="anchor-link" href="#simp-ex-not"></a></h5>
+            <figure>
+                <figcaption>Simple Example: Negation</figcaption>
+                <img src="img/ann_not.png" alt="">
+            </figure>
+
+            <p>$h_\Theta(x) = g(10 - 20x_1)$</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>$x_1$</th>
+                        <th>$h_\Theta(x)$</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>$0$</td>
+                        <td>$g(10) \approx 1$</td>
+                    </tr>
+                    <tr>
+                        <td>$1$</td>
+                        <td>$g(-10) \approx 0$</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h5 id="simp-ex-xnor">XNOR<a class="anchor-link" href="#simp-ex-xnor"></a></h5>
+            <figure>
+                <figcaption>explanatory caption</figcaption>
+                <img src="img/ann_xnor.png" alt="">
+            </figure>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>$x_1$</th>
+                        <th>$x_2$</th>
+                        <th>$a_1^{(2)}$</th>
+                        <th>$a_2^{(2)}$</th>
+                        <th>$h_\Theta(x)$</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>$0$</td>
+                        <td>$0$</td>
+                        <td>$0$</td>
+                        <td>$1$</td>
+                        <td>$1$</td>
+                    </tr>
+                    <tr>
+                        <td>$0$</td>
+                        <td>$1$</td>
+                        <td>$0$</td>
+                        <td>$0$</td>
+                        <td>$0$</td>
+                    </tr>
+                    <tr>
+                        <td>$1$</td>
+                        <td>$0$</td>
+                        <td>$0$</td>
+                        <td>$0$</td>
+                        <td>$0$</td>
+                    </tr>
+                    <tr>
+                        <td>$1$</td>
+                        <td>$1$</td>
+                        <td>$1$</td>
+                        <td>$1$</td>
+                        <td>$1$</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4 id="ann-multi-class">Multiclass Classification<a class="anchor-link" href="#ann-multi-class"></a></h4>
+            <p>$y^{(i)}\in\mathbb{R}^n$ where $n$ is the number of classes.</p>
+            $$h_\Theta = \left[\begin{array}{c} 0 \\ \vdots \\ 0 \\ 1 \\ 0 \\ \vdots 0 \end{array}\right]$$
+            <p>The $i$-th column is equal to $1$ for the $i$-th feature of the output layer.</p>
+
             <hr>
 
             <h2 id="appendix">Appendix<a class="anchor-link" href="#appendix"></a></h2>

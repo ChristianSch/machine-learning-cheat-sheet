@@ -549,7 +549,7 @@ initialTheta = zeros(2,1);
             </figure>
 
             <h4 id="ex-int-1">Examples and Intuitition I<a class="anchor-link" href="#ex-int-1"></a></h4>
-            <h5 id="simp-ex-and">Simple Example: AND<a class="anchor-link" href="#simp-ex-and"></a></h5>
+            <h5 id="simp-ex-and">Simple Example: AND<a class="anchor-link" href="#ex-int-2"></a></h5>
             <ul>
                 <li>$x_1, x_2 \in \{0,1\}$</li>
                 <li>$y = x_1 \text{AND} x_2$</li>
@@ -726,7 +726,323 @@ initialTheta = zeros(2,1);
             $$h_\Theta = \left[\begin{array}{c} 0 \\ \vdots \\ 0 \\ 1 \\ 0 \\ \vdots 0 \end{array}\right]$$
             <p>The $i$-th column is equal to $1$ for the $i$-th feature of the output layer.</p>
 
+            <h4 id="ann-adv-opt">Advanced Optimization</h4>
+<pre><code>function[jVal ,gradient] = costFunction(gradient = [code to compute the partial derivitive of theta_j of J(theta)]; theta)</code></pre>
+
+            <p>With $j>1$ (note that octave indexes start at 1).</p>
+
+            <h3>Neural Networks: Learning</h3>
+            <h4>Cost Function</h4>
+            $$\{ (x^{(1)}, y^{(1)}), …, (x^{(m)}, y^{(m)}) \}\\
+            L = \text{number of layers in network}\\
+            s_l = \text{numbers of units (that are not bias units)}$$
+
+            <h5>Binary Classification</h5>
+            <p>$y \in \{0,1\}$ with one output unit.</p>
+
+            <h5>Multi-Class Classification</h5>
+            <p>For $K$ classes: $y \in \mathbb{R}^K$ with $K$ output units.</p>
+
+            <h5>Cost Function</h5>
+            <p>The cost function for neural networks is similar to the regularized logistic regressions cost function.</p>
+            $$
+            h_\Theta(x) \in \mathbb{R}^K \;\; (h_\Theta(x))_i = \text{i-th output}\\
+            $$
+            $$\begin{align}
+            J(\Theta) = &-\frac{1}{m}\left[ \sum^{m}_{i=1} \sum^{K}_{k=1} y^{(i)}_k log(h_\Theta(x^{(i)}))_k + (1-y^{(i)}_k) log(1-(h_\Theta(x{(i)}))_k) \right]\\
+                & + \frac{\lambda}{2m} \sum^{L-1}_{l=1}\sum^{s_l}_{i=1}\sum^{s_{l+1}}_{j=1}(\Theta^{(l)}_{ji})^2
+            \end{align}
+            $$
+
+            <h4>Backpropagation Algorithm</h4>
+            <h5>Gradient Computation</h5>
+            <p>With $J(\Theta)$ we now need $\text{min}_\Theta$. For that we need to compute:</p>
+
+            <ul>
+                <li>$J(\Theta)$</li>
+                <li>$\frac{\delta}{\delta \Theta^{(l)}_{ij}} J(\Theta)$ with $\Theta^{(l)}_{ij} \in \mathbb{R}$</li>
+            </ul>
+
+            <p>Intuitition: $\delta^{(l)}_j$ is the error of node $j$ in layer $l$. If we for example have a four layer network ($L = 4$) we have to calculate three errors:</p>
+
+            <ul>
+                <li>$\delta^{(4)}_j = a^{(4)}_j - y_j$ what basically is $\delta^{(4)} = h_\Theta(x) - y$</li>
+                <li>$\delta^{(3)}_j = (\Theta^{(3)})^T \delta^{(4)} .* g'(z^{(3)})$</li>
+                <li>$\delta^{(2)}_j = (\Theta^{(2)})^T \delta^{(3)} .* g'(z^{(2)})$</li>
+            </ul>
+
+            <h5>Alrogithm: Backpropagation</h5>
+            <p>The training set is :$\{ (x^{(1)}, y^{(1)}), ..., (x^{(m)}, y^{(m)}) \}$.
+            We now set $\Delta^{(l)}_{ij} = 0 \; \forall \; l,j,i$. $\Delta$ is used to compute $\frac{\delta}{\delta \Theta_{ij}^{(l)}} J(\Theta)$.</p>
+
+            $$\begin{aligned}
+                \text{for} \; & i = 1 \; \text{to} \; m\\
+                    & \text{set} \; a^{(1)} = x^{(i)}\\
+                    & \text{perform forward propagation to compute} \; a^{(l)} \; \text{for} \; l = 2,3,...,L\\
+                    & \text{using} \; y^{(i)} \text{, compute} \delta^{(L)} = a^{(L)} - y^{(i)}\\
+                    & \text{compute} \; \delta^{(L-1)}, \delta^{(L-2)}, ..., \delta^{(2)}\\
+                    & \Delta^{(l)}_{ij} := \Delta^{(l)}_{ij} + a^{(l)}_j \delta^{(l+1)}_i \;\; \text{(vectorized:} \; \Delta^{(l)} = \Delta^{(l)} + \delta^{(l+1)} (a^{(l)})T \; \text{)}\\
+                    \\
+                    \\
+            D^{(l)}_{ij} &= \frac{1}{m} \Delta^{(l)}_{ij} + \lambda\Theta^{(l)}_{ij} \;\; \text{if} \;  \neq 0\\
+            D^{(l)}_{ij} &= \frac{1}{m} \Delta^{(l)}_{ij}\\
+            \frac{\delta}{\delta \Theta_{ij}^{(l)}} & J(\Theta) = D^{(l)}_{ij}
+            \end{aligned}$$
+
+            <h5>Forward Propagation</h5>
+            $$\text{cost}(i) = y^{(i)} log(h_\Theta(x^{(i)})) + (1-y^{(i)})log(h_\Theta(x^{(i)}))$$
+
+            <p>The <em>error</em> of $a^{(l)}_{j}$ (unit $j$ in layer $l$) is:</p>
+            $$\delta^{(l)}_j = \frac{\delta}{\delta z^{(l)}_j} \text{cost}(i)$$
+
+            <h4>Implementation Note: Unrolling Parameter</h4>
+<pre><code class="scilab">function[jval, gradient] = costFunction(theta)
+…
+optTheta = fminunc(@costFunction, initialTheta, options)</code></pre>
+
+            <p>Where <code>gradient</code> and <code>theta</code> are vectors in $\mathbb{R}^{n+1}$.</p>
+
+            <p>If we have for example a neural network with four layers ($L=4$):</p>
+            <ul>
+                <li>$\Theta^{(1)}, \Theta^{(2)}, \Theta^{(3)}$ are matrices (<code>Theta1></code>, <code>Theta2</code>, <code>Theta3</code>)</li>
+                <li>$D^{(1)}, D^{(2)}, D^{(3)}$ matrices (<code>D1</code>, <code>D2</code>, <code>D3</code>)</li>
+            </ul>
+            <p>all unrolled into vectors.</p>
+
+            <h5>Example</h5>
+            $$s_1 = 10, s_2 = 10, s_3 = 1\\
+            \Theta^{(1)} \in \mathbb{R}^{10x11}, \Theta^{(2)} \in \mathbb{R}^{10,11}, \Theta^{(3)} \in \mathbb{R}^{1x11}\\
+            D^{(1)} \in \mathbb{R}^{10x11}, D^{(2)} \in \mathbb{R}^{10,11}, D^{(3)} \in \mathbb{R}^{1x11}
+            $$
+
+<pre><code class="scilab">thetaVec = [Theta1(:), Theta2(:), Theta3(:)];
+DVec = [D1(:), D2(:), D3(:)];
+
+Theta1 = reshape(thetaVec(1:110), 10, 11)
+Theta2 = reshape(thetaVec(111:220), 10, 11)
+Theta3 = reshape(thetaVec(221:231), 1, 11)
+</code></pre>
+
+            <h6>Learning Algorithm</h6>
+            <ul>
+                <li>Have initial parameters $\Theta^{(1)}, \Theta^{(2)}, \Theta^{(3)}$</li>
+                <li>Unroll to get <code>initialTheta</code> to pass to
+                <code>fminunc(@costFunction, initialTheta, options)</code></li>
+            </ul>
+
+            <p><code>function[jVal, gradientVec] = costFunction(thetaVec)</code></p>
+            <ul>
+                <li>From <code>thetaVec</code>, get $\Theta^{(1)}, \Theta^{(2)}, \Theta^{(3)}$ via reshape</li>
+                <li>Use forward/backward propagation to compute $D^{(1)}, D^{(2)}, D^{(3)}$, unroll to get <code>gradientVec</code></li>
+            </ul>
+
+            <h4>Gradient Checking</h4>
+            <figure>
+                <img src="img/grad-check.png" alt="">
+            </figure>
+
+            $$\frac{d}{dJ(\theta)} = \frac{J(\theta + \epsilon)- J(\theta - \epsilon)}{2\epsilon}$$
+
+            <p>with $\epsilon = 10^{-4}$. The implementation would look like this:</p>
+<pre><code class="scilab">gradApprox = (J(theta + EPSILON) - (J(theta - EPSION)) / (2 * EPSILON)</code></pre>
+
+            <p>The parameter vector $\theta \mathbb{R}^n$ is the unrolled version of all the $\Theta^{(l)}$. The partial derivitives of the cost function would look like this:</p>
+
+            $$\frac{\delta}{\delta \theta_1} J(\theta) = \frac{J(\theta_1 + \epsilon, \theta_2, ..., \theta_n) - J(\theta_1 - \epsilon, \theta_2, ..., \theta_n)}{2 \epsilon}\\
+            \frac{\delta}{\delta \theta_2} J(\theta) = \frac{J(\theta_1, \theta_2 + \epsilon, ..., \theta_n) - J(\theta_1, \theta_2 - \epsilon, ..., \theta_n)}{2 \epsilon}\\
+            ... \\
+            \frac{\delta}{\delta \theta_n} J(\theta) = \frac{J(\theta_1, \theta_2, ..., \theta_n) + \epsilon - J(\theta_1, \theta_2, ..., \theta_n - \epsilon)}{2 \epsilon}\\
+            $$
+<pre><code class="scilab">for i = 1:n,
+    thetaPlus = theta;
+    thetaPlus(i) = thetaPlus(i) + EPSILON;
+    thetaMinus = theta;
+    thetaPlus(i) = thetaPlus(i) - EPSILON;
+    gradApprox(i) = (J(thetaPlus) - J(thetaMinus)) / (2*EPSILON);
+</code></pre>
+
+            <p>We then need to check that <code>gradApprox</code> $\approx$ <code>DVec</code> returned from the back propagation.</p>
+
+            <h5>Implementation Note</h5>
+            <ul>
+                <li>Implement the back propagation to compute <code>DVec</code> (unrolled $D^{(1)}, D^{(2)}, D^{(3)}$)</li>
+                <li>Implement numerical gradient checking to compute <code>gradApprox</code></li>
+                <li>Make sure they have similar values</li>
+                <li>Turn off gradient checking. Using backprop code for learning.</li>
+            </ul>
+
+            <p><b>Important:</b> Be sure to disable gradient checking before training your classifier. If you run numerical gradient computation on every iteration of gradient descent your code will be very slow.</p>
+
+            <h4>Random Initialization</h4>
+            <p>For gradient descent and advanced optimization method, we need an initial value for $\Theta$.</p>
+<pre><code class="scilab">optTheta = fminunc(@costFunction, initialTheta, options)</code></pre>
+
+            <p>Consider gradient descent with <code>initialTheta = zeros(n,1)</code>.</p>
+
+            <h5>Zero Initialization</h5>
+            <p>When initialized with zero, after every update the parameters corresponding to the inputs going into each of the hidden units are identical.</p>
+
+            <h5>Random Initialization: Symmetry Breaking</h5>
+            <p>Initialize each $\Theta^{(l)}_{ij}$ to random value in $[-\epsilon, \epsilon]$. For example:</p>
+<pre><code class="scilab">Theta1 = rand(10,11)*(2*INIT_EPSILON) - INIT_EPSILON;
+Theta2 = rand(1, 11)*(2*INIT_EPSILON) - INIT_EPSILON;</code></pre>
+
+            <h4>Putting it together</h4>
+            <ul>
+                <li>Pick a network architecture (connectivity pattern between neurons)</li>
+                <li>Number of inputs: dimensions of features $x^{(i)}$</li>
+                <li>Number of output units: number of classes</li>
+            </ul>
+
+            <p>(Reasonable default: one hidden layer, or if more than one hidden layer, you need to have the same number of hidden units in every hidden layer (usually the more the better))</p>
+
+            <h5>Training a Neural Network</h5>
+            <ul>
+                <li>Randomly initialize weights</li>
+                <li>Implement forward propagation to get $h_\Theta(x^{(i)})$ for any $x^{(i)}$</li>
+                <li>Implement code to compute cost function $J(\Theta)$</li>
+                <li>Implement back propagation to compute partial derivitives $\frac{\delta}{\delta \Theta^{(l)}_{jk}} J(\Theta)$
+                    <p>For all features:</p>
+                    <ul>
+                        <li>Perform forward and backward propagation using the example $(x^{(i)}, y^{(i)})$</li>
+                        <li>(Get activations $a^{(l)}$ and delta terms $\delta^{(l)}$ for $l=2,…,L$)</li>
+                        <li>Compute partial derivitive of the cost function</li>
+                    </ul>
+                </li>
+                <li>Use gradient checking to compare $\frac{\delta}{\delta \Theta^{(l)}_{ij}} J(\Theta)$ computed using backpropagation vs. using numerical estimate of gradient of $J(\Theta)$. Turn off code for gradient checking.</li>
+                <li>Use <u>gradient descent</u> or <u>adavanced optimization method</u> with backpropagation to try to minimize $J(\Theta)$ as a function of parameters $\Theta$</li>
+            </ul>
+
+            <h2 class="week-indicator" id="week-5">Week 5<a class="anchor-link" href="#week-5"></a></h2>
+            <h3>Deciding What to Try Next</h3>
+            <h4>Debugging a learning algorithm</h4>
+            <p>Suppose you implemented regularized linear regression. However, when you test your hypothesis on a new set of data, you find that it mameks unacceptably large errors in its predictions. What should you try next?</p>
+
+            <ul>
+                <li>Get more training examples</li>
+                <li>Try a smaller set of features</li>
+                <li>Try getting additional features</li>
+                <li>Try adding polynomial features</li>
+                <li>Try decreasing $\lambda$</li>
+                <li>Try increasing $\lambda$</li>
+            </ul>
+
+            <h4>Machine Learning Diagnostics</h4>
+            <p>Diagnostic: A test that you can run to gain insight what is/isn't working with a learning algorithm, and gain guidance as to how best to improve its performance.</p>
+            <p>Diagnostics can take itme to implement, but doing so can be very good use of your time.</p>
             <hr>
+
+            <h3>Evaluating a Hypothesis</h3>
+            <p>To test the hypothesis, the training data gets split into a training set (bigger part) and a test set (smaller part). You could for example split them into 70%/30%. Note that the data is sorted, the picks should be randomized, or the data should be randomly shuffled.</p>
+
+            <ul>
+                <li>Training set:
+                $$\begin{array}{c}
+                (x^{(1)},y^{(1)})\\
+                (x^{(2)},y^{(2)})\\
+                \vdots \\
+                (x^{(m)},y^{(m)})
+                \end{array}$$</li>
+                <li>Test set (with $m_\text{test}$: number of examples):
+                $$\begin{array}{c}
+                (x^{(1)}_\text{test},y^{(1)}_\text{test})\\
+                (x^{(2)}_\text{test},y^{(2)}_\text{test})\\
+                \vdots \\
+                (x^{(m)}_\text{test},y^{(m)}_\text{test})
+                \end{array}$$</li>
+            </ul>
+
+            <h4>Training/Testing Procedure for Linear Regression</h4>
+            <p>Learn parameter $\theta$ from training data (minimizing training error $J(\theta)$ and compute the test set error:</p>
+            $$ J_\text{test}(\theta) =\frac{1}{2m_\text{test}} \sum^{m_\text{test}}_{i=1} \left( h_\theta(x^{(i)}_\text{test} - y^{(i)}_\text{test}) \right) $$
+
+            <p>The misclassification error:</p>
+
+            $$\text{err}(h_\theta(x), y) = \left\{\begin{array}{l}
+                \text{if} \; h_\theta(x) \geq 0.5 \;\; y=0 \\
+                \text{or if} \; h_\theta(x) \lt 0.5 \;\; y=1
+            \end{array}\right.$$
+
+            <p>The test error is:</p>
+             $$\frac{1}{m_\text{test}} \sum^{m_\text{test}}_{i=1} \text{err}(h_\theta(x^{(i)}_\text{test}), y^{(i)}_\text{test})$$
+
+            <h4>Model Selection and Train/Validation/Test Sets</h4>
+            <p>Once parameters $\theta_0, \theta_1, \cdots, \theta_4$ were fit to some data (training set), the error of the parameters as measured on that data (the training error $J(\vec\theta)$) is likely to be lower than the actual generalization error.</p>
+
+            <h5>Model Selection</h5>
+            <ol>
+                <li>$h_\theta(x) = \theta_0 + \theta_1 x$ with $d=1$ $\rightarrow$ $\Theta^{(1)} \rightarrow J_\text{test}(\Theta^{(1)})$</li>
+                <li>$h_\theta(x) = \theta_0 + \theta_1 x + \theta_2 x^2$ with $d=2$ $\rightarrow$ $\Theta^{(2)} \rightarrow J_\text{test}(\Theta^{(2)})$</li>
+                <li>$h_\theta(x) = \theta_0 + \theta_1 x + \theta_2 x^2 + \theta_3 x^3$ with $d=3$  $\rightarrow$ $\Theta^{(3)} \rightarrow J_\text{test}(\Theta^{(3)})$</li>
+                <li>…</li>
+                <li>$h_\theta(x) = \theta_0 + \theta_1 x + \cdots + \theta_10 x^10$ with $d=10$  $\rightarrow$ $\Theta^{(10)} \rightarrow J_\text{test}(\Theta^{(10)})$</li>
+            </ol>
+
+            <p>In order to select a model you could take the hypothesis with the lowest <em>test set error</em>. (Let's say for now it's $\theta_0 + \cdots + \theta_5x^5$). Now how well does it generalize? report the test set error $J_\text{test}(\theta^{(5)}$</p>
+            <p>The problem is, that $J_\text{test}(\theta^{(5)}$ is likely to be an optimistic estimate of generalization error, i.e. our extra parameter ($d$ = degree of polynomial) is fit to the test set.</p>
+
+            <p>Now instead of splitting it 70/30 we split the dataset like this: 60% training set, 20% cross validation set ($cv$) and 20% test set.</p>
+
+            <ul>
+                <li>$$\begin{array}{c}
+                (x^{(1)}, y^{(1)})\\
+                (x^{(2)}, y^{(2)})\\
+                \vdots\\
+                (x^{(m)}, y^{(m)})\\
+                \end{array}$$</li>
+                <li>$$\begin{array}{c}
+                (x^{(1)}_{cv}, y^{(1)}_{cv})\\
+                (x^{(2)}_{cv}, y^{(2)}_{cv})\\
+                \vdots\\
+                (x^{(m)}_{cv}, y^{(m)}_{cv})\\
+                \end{array}$$</li>
+                <li>$$\begin{array}{c}
+                (x^{(1)}_{\text{test}}, y^{(1)}_{\text{test}})\\
+                (x^{(2)}_{\text{test}}, y^{(2)}_{\text{test}})\\
+                \vdots\\
+                (x^{(m)}_{\text{test}}, y^{(m)}_{\text{test}})\\
+                \end{array}$$</li>
+            </ul>
+
+            <p>Where $m_{cv}$ is the number of cross validation examples.</p>
+
+            <ul>
+                <li>Training error: $J(\theta) = \frac{1}{2m} \sum^{m}_{i=1} (h_\theta(x^{(i)})-y^{(i)})^2$</li>
+                <li>Cross Validation error: $J_{cv}(\theta) = \frac{1}{2m_{cv}} \sum^{m_cv}_{i=1} (h_\theta(x^{(i)}_{cv})-y^{(i)}_{cv})^2$</li>
+                <li>Cross Validation error: $J_{\text{test}}(\theta) = \frac{1}{2m_\text{test}} \sum^{m_\text{test}}_{i=1} (h_\theta(x^{(i)}_{\text{test}})-y^{(i)}_{\text{test}})^2$</li>
+            </ul>
+
+            <p>Now to select a model you calculate $min_\theta J(\theta)$ for $\theta^{(i)}$ and then calculate $J_{cv}(\theta)$. You then select the model with the lowest cross validation error.</p>
+
+            <h4>Diagnosing Bias vs. Variance</h4>
+            <figure>
+                <figcaption>Bias vs. Variance</figcaption>
+                <img src="img/bias_vs_variance.png" alt="">
+            </figure>
+
+            <p>Suppose your learning algorithm is performing less wellt han yoh were hoping. ($J_{cv}(\theta)$ or $J_\text{test}(\theta)$ is high.) Is it as bias problem or a variance problem?</p>
+
+            <figure>
+                <figcaption>Train vs. Cross Validation Error</figcaption>
+                <img src="img/train_vs_cross.png" alt="">
+            </figure>
+
+            <ul>
+                <li><b>Bias (underfit):</b> $J_\text{train}(\theta)$ will be high, $J_{cv}(\theta) \approx J_\text{train}(\theta)$</li>
+                <li><b>Variance (overfit):</b> $J_\text{train}(\theta)$ will be low, $J_{cv}(\theta) \gt\gt J_\text{train}(\theta)$</li>
+            </ul>
+
+            <figure>
+                <figcaption>Bias or Variance?</figcaption>
+                <img src="img/bias_or_variance.png" alt="">
+            </figure>
+
+            <h4>Regularization and Bias/Variance</h4>
+            <h5>Linear Regression with Regularization</h5>
+            <h5>Choosing the Regularization Parameter $\lambda$</h5>
+            <h5>Bias/Variance as a Function of the Regularization Parameter $\lambda$</h5>
+            <h4>Learning Curves</h4>
+            
 
             <h2 id="appendix">Appendix<a class="anchor-link" href="#appendix"></a></h2>
             <h3 id="footnotes">Footnotes<a class="anchor-link" href="#footnotes"></a></h3>

@@ -138,7 +138,7 @@
             & temp1 := \theta_1 - \alpha \frac{\delta}{\delta\theta_j} J(\theta_0, \theta_1)\\
             & \theta_0 := temp0 \\
             & \theta_1 := temp1
-            \end{aligned}$$ 
+            \end{aligned}$$
 
             <h5 id="part-der-cf">Partial derivitive of the cost function<a class="anchor-link" href="#part-der-cf"></a></h5>
             $$\begin{aligned}
@@ -240,12 +240,12 @@
 
             <p>For $\alpha$ try: $0.001$, $0.003$, $0.01$, $0.03$, $0.1$, $0.3$, $1$ etc.</p>
 
-            
+
             <h4 id="poly-reg">Features and Polynomial Regression<a class="anchor-link" href="#poly-reg"></a></h4>
             <p>You can choose your model to fit to a polynomial if you want it to behave in a
             specific way. You not only can choose to multiply/divide two or more features to create
-            a new feature, you can also fit your model to a more complex polynomial. If you want your 
-            model to behave for example to increase you could choose to use $(size)^2$, fit it to a 
+            a new feature, you can also fit your model to a more complex polynomial. If you want your
+            model to behave for example to increase you could choose to use $(size)^2$, fit it to a
             cubic polynomial the same way, or use $\sqrt{size}$.</p>
 
 
@@ -323,7 +323,7 @@
 
             <p>Which gives us the following representation for the hypothesis:</p>
 
-            $$h_\theta(x) = \frac{1}{1+e^{-\theta^Tx}}$$            
+            $$h_\theta(x) = \frac{1}{1+e^{-\theta^Tx}}$$
 
             <h4 id="hypo-interpr">Interpretation of the Hypothesis Output<a class="anchor-link" href="#hypo-interpr"></a></h4>
             <p>$h_\theta(x)$ is the estimated probability that $y=1$ on input $x$:</p>
@@ -449,7 +449,7 @@ gradient(2) = 2*theta(2)-5);
 options = optimset('GradObj', 'on', 'MaxIter', '100');
 initialTheta = zeros(2,1);
 [optTheta, functionval, exitFlag] = fminunc(@costFunction, initialTheta, options);</code></pre>
-            
+
 
             <h4 id="one-vs-all-class">Multiclass Classification: One-vs-all<a class="anchor-link" href="#one-vs-all-class"></a></h4>
             <p>Classification with more than two $y$'s works like this:</p>
@@ -572,7 +572,7 @@ initialTheta = zeros(2,1);
             <figure>
                 <figcaption>Simple Example: AND</figcaption>
                 <img src="img/ann_and.png" alt="">
-                
+
             </figure>
 
             <p>We add the following weights to achieve the <em>AND</em> operation:
@@ -1056,7 +1056,7 @@ Theta2 = rand(1, 11)*(2*INIT_EPSILON) - INIT_EPSILON;</code></pre>
             <h5>Choosing the Regularization Parameter $\lambda$</h5>
             <h5>Bias/Variance as a Function of the Regularization Parameter $\lambda$</h5>
             <h4>Learning Curves</h4>
-            
+
 
             <h2 id="appendix">Appendix<a class="anchor-link" href="#appendix"></a></h2>
             <h3 id="footnotes">Footnotes<a class="anchor-link" href="#footnotes"></a></h3>

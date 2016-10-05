@@ -104,6 +104,13 @@
             In this case the hypothesis is called <em>»Univariate Linear Regression«</em>.</p>
 
             <h4 id="cost-function">Cost Function<a class="anchor-link" href="#cost-function"></a></h4>
+            <p>Idea: Choose $\theta_0, \theta_1$ so that $h_\theta(x)$ is close to $y$
+            for our training examples $(x,y)$. The 3D-surface plot below visualizes
+            the cost function for the two parameters.</p>
+
+            <img src="img/cost_function_surface.png"
+                 alt="Cost Function 3D Surface Plot">
+
             <h5 class="definition" id="def-secf">Squared Error Cost Function<a class="anchor-link" href="#def-secf"></a></h5>
             $$J(\theta_0, \theta_1) = \frac{1}{2m} \sum^{m}_{i=1}\left(h_{\theta}(x^{(i)}) - y^{(i)}\right)^2$$
 
